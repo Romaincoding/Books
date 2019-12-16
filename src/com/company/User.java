@@ -14,7 +14,7 @@ public class User {
     private int dayBirth;
     private int monthBirth;
     private int yearBirth;
-    private List<User> userList;
+
 
 
 

@@ -32,4 +32,13 @@ public class Book {
         return editorName;
     }
 
+    @Override
+    public String toString() {
+        return "Book{" +
+                "title='" + title + '\'' +
+                ", ref='" + ref + '\'' +
+                ", dateOfParution=" + dateOfParution +
+                ", editorName='" + editorName + '\'' +
+                '}';
+    }
 }

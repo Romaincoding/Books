@@ -1,5 +1,7 @@
 package com.company;
 
+import jdk.swing.interop.SwingInterOpUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,7 +11,7 @@ import java.util.Scanner;
  */
 
 public class Commands {
-    private static List<User> userList = new ArrayList<User>();
+
     private List<Book> booksList = new ArrayList<Book>();
     Boolean programIsOn;
 
@@ -33,6 +35,8 @@ public class Commands {
         }
     }
 
+
+
     static void addUser() {
 
 
@@ -48,18 +52,24 @@ public class Commands {
             System.out.println("What is your day of birth?:");
             Scanner sc2 = new Scanner(System.in);
             int dayBirth = sc2.nextInt();
+            if(dayBirth <= 1 || dayBirth >= 31) {
+                System.out.println("Please enter a correct day of Birth");
+            }
 
             System.out.println("What is your month of birth? :");
             Scanner sc3 = new Scanner(System.in);
             int monthBirth = sc3.nextInt();
+            if(monthBirth <= 1 || monthBirth >= 12) {
+                throw new Exception("Please enter a correct month of Birth");
+            }
 
             System.out.println("What is your year of birth? :");
             Scanner sc4 = new Scanner(System.in);
-            int yearBirth = sc3.nextInt();
+            int yearBirth = sc4.nextInt();
 
-            User user = new User(firstName, lastName, dayBirth, monthBirth, yearBirth);
-            userList.add(user);
-            System.out.println(userList.get(0));
+//            User user = new User(firstName, lastName, dayBirth, monthBirth, yearBirth);
+//            userList.add(user);
+//            System.out.println(userList.get(0));
 
 
         } catch (Exception e) {
@@ -68,41 +78,10 @@ public class Commands {
 
         }
 
+
     }
 
-    /**
-     * Function that allows to update informations of a user
-     * @param firstName firstname of the user
-     * @param lastName lastname of the user
-     */
- void  editUser( String firstName,  String lastName) {
-//        userList.equals();
-//        userList.contains();
-//- la commande recherche un utilisateur avec exactement le patronyme rentré. Si l'utilisateur existe, alors la commande demande le nouveau nom (si on entre une chaine vide, alors pas de changement de nom), demande ensuite le nouveau prénom (si chaine vide, pas de changement) et va demander ensuite chaque champ du jour, mois, année de naissance (toujours avec la possibilité de ne pas changer la valeur en appuyant sur entrée pour laisser une chaine vide).
-//            - la commande va ensuite vérifier les nouvelles informations entrées (comme le fait adduser) et enregistrer les modifications de l'utilisateur DANS LE MEME OBJET (on modifie l'utilisateur, on n'en créé pas de nouveau). SI une erreur est survenue dans la saisie des nouvelles valeurs (ex : le nouveau nom et le nouveau prénom existent deja, ou bien une nouvelle date de naissance qui n'est pas un entier) alors on ne modifie pas l'utilisateur et on affiche un message d'erreur.
-//- si l'utilisateur recherché n'existe pas dans la liste, alors on affiche un message d'erreur.
-//            - si l'utilisateur est en cours d'emprunt, alors on ne pourra pas le modifier et un message d'erreur sera affiché
-}
 
-    /**
-     * Function that allows to delete a user
-     * @param firstName firstname of the user
-     * @param lastName lastname of the user
-     */
-  void removeUser(String firstName, String lastName) {
-//- cette commande recherche un utilisateur avec le meme nom ET prénom rentrés et va le supprimer de la liste.
-//- si l'utilisateur recherché n'existe pas, alors on affiche un message d'erreur comme quoi il est introuvable.
-//            - si l'utilisateur existe, il est supprimé de la liste en mémoire, et on affiche un message de réussite de l'effacement.
-//- si l'utilisateur est en cours d'emprunt de livre, alors l'effacement de cet utilisateur ne pourra pas se faire et un message d'erreur sera affiché
-  }
-    /**
-     * Function that diplays the list of all users
-     * @return a list of users
-     */
-    ArrayList listUsers() {
-//- affiche tous les utilisateurs
-        return null;
-}
 
 
 
@@ -152,10 +131,10 @@ public class Commands {
 
                 addUser();
 
-                break;
+
 
             case 4:
-//                editUser();
+                //editUser("mich","mouch");
 
                 break;
 
@@ -195,7 +174,7 @@ public class Commands {
             case 15:
 //                restore();
         }
-        return true;
+        return programIsOn;
     }
 //    [#1] help
 //- cette commande doit afficher toutes les commandes possibles de votre application ainsi que le formalisme (décrit ci-dessous pour chaque commande)
@@ -218,42 +197,6 @@ public class Commands {
      * @param year       parution date of the book
      * @param editorName name of the editor of the book
      */
-    void addBook(String title, String ref, int year, String editorName) {
-//- cherche d'abord un livre qui porte la meme référence (ou le même titre ET la même année ET le même distributeur). Si un livre avec la meme référence (ou le même titre ET la même année ET le même éditeur) existe deja dans la mémoire, alors on affiche un message d'erreur (avec les infos du livre existant par exemple)
-//
-    }
-
-    /**
-     * Function that allows to update information of a book
-     *
-     * @param ref unique String reference for a book
-     */
-  static void editBook(String ref) {
-//- cette commande va rechercher une référence de livre dans les données et si elle le trouve va demander de remplacer toutes les infos qui y sont liées (comme dans la commande edituser).
-//            - si la référence de livre n'est pas trouvée, alors on affiche un message d'erreur.
-//- pour chaque champ de valeur, on peut laisser une chaine vide pour indiquer qu'on ne change pas la valeur (comme expliqué dans la commande edituser).
-    }
-
-    /**
-     * Function that allows to delete a book
-     *
-     * @param ref unique String reference for a book
-     */
-  static  void removeBook(String ref) {
-//- cette commande recherche une référence de livre et la supprime de la liste en mémoire.
-//- si la référence n'est pas trouvée, un message d'erreur s'affiche.
-//            - si la référence existe, il faut vérifier que personne n'a actuellement emprunté le livre. Si c'est le cas, un message d'erreur affichera que ce livre ne peut pas être supprimé car il est en cours d'emprunt.
-    }
-
-    /**
-     * Function that allows to display the list of all the books
-     *
-     * @return list of all the books
-     */
-  static  ArrayList listBooks() {
-// affiche tous les livres
-      return null;
-    }
 
     //
 //
