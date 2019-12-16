@@ -10,9 +10,16 @@ public class UserMgt {
 
 
     public static void addUser(String firstName, String lastName, int dayBirth, int monthBirth, int yearBirth){
-        User user = new User(firstName, lastName , dayBirth , monthBirth, yearBirth);
-        userList.add(user);
-    }
+        for(User user:userList) {
+            if (user.getFirstName().equals(firstName) && user.getLastName().equals(lastName)) {
+                System.out.println("User already exists!");
+                return;
+            }
+        }
+           User user = new User(firstName, lastName, dayBirth, monthBirth, yearBirth);
+            userList.add(user);
+            return;
+        }
     /**
      * Function that allows to update informations of a user
      * @param firstName firstname of the user

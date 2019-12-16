@@ -14,7 +14,8 @@ public class App {
 //       String test2 = test.toString();
 //        System.out.println(test2);
         do {
-            CommandMenu.displayHelp();
+            //CommandMenu.displayHelp();
+            System.out.println("GO");
             int ch = CommandMenu.getUserChoice();
             // System.out.println(ch);
            programIsOn = CommandMenu.processCmd(ch);

@@ -99,7 +99,11 @@ public class CommandMenu {
 
             case 3:
 //                addUser();
-                UserMgt.addUser("Cristobal", "troudebal", 2 ,7, 1982);
+
+                UserMgt.addUser("toto", "beau", 2 ,7, 1982);
+                System.out.println(UserMgt.getUserList());
+
+                // System.out.println(UserMgt.getUserList());
                 break;
 
             case 4:
@@ -196,13 +200,15 @@ public class CommandMenu {
        try {
            System.out.println(message);
            Scanner sc = new Scanner(System.in);
-           int number = sc.nextInt();
+          int number =  Integer.parseInt(sc.nextLine());
            if (number <= min || number >= max) {
-               System.out.println("Please enter a correct value");
+               System.out.println("Please enter an integer value");
                return -1;
            }
            return number;
        } catch (Exception e) {
+           System.out.println(e);
+           System.out.println("Please enter an integer value");
            return -1;
        }
    }
@@ -214,6 +220,8 @@ public class CommandMenu {
         int number = sc.nextInt();
         return number;
       }catch (Exception e) {
+
+          System.out.println(e);
           return -1;
       }
     }
