@@ -12,7 +12,7 @@ public class App {
 //        User test = userList.get(0);
 //       String test2 = test.toString();
 //        System.out.println(test2);
-        Commands.displayHelp();
+        Commands.addUser();
 
 
 

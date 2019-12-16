@@ -6,9 +6,9 @@ import java.util.Map;
  * Class qui gère l'emprunt
  */
 
-public class Loan {
+public class Borrowing {
     private Map<User, Book> contactsMap;
-    private LoanLogger logger;
+    private BorrowLogger logger;
 //    [>] Les emprunts
 //- nom de l'utilisateur (chaine de caractères)
 //            - le prénom de l'utilisateur (chaine de caractères)

@@ -9,7 +9,7 @@ import java.util.Scanner;
  */
 
 public class Commands {
-    private List<User> userList = new ArrayList<User>();
+    private static List<User> userList = new ArrayList<User>();
     private List<Book> booksList = new ArrayList<Book>();
     Boolean programIsOn;
 
@@ -33,7 +33,8 @@ public class Commands {
         }
     }
 
-    void addUser() {
+    static void addUser() {
+
 
         try {
             myPrint("Green", "What is your first name? :");
@@ -58,6 +59,7 @@ public class Commands {
 
             User user = new User(firstName, lastName, dayBirth, monthBirth, yearBirth);
             userList.add(user);
+            System.out.println(userList.get(0));
 
 
         } catch (Exception e) {
@@ -87,18 +89,19 @@ public class Commands {
      * @param firstName firstname of the user
      * @param lastName lastname of the user
      */
-  void removeUser(String firstName, String lastName)
+  void removeUser(String firstName, String lastName) {
 //- cette commande recherche un utilisateur avec le meme nom ET prénom rentrés et va le supprimer de la liste.
 //- si l'utilisateur recherché n'existe pas, alors on affiche un message d'erreur comme quoi il est introuvable.
 //            - si l'utilisateur existe, il est supprimé de la liste en mémoire, et on affiche un message de réussite de l'effacement.
 //- si l'utilisateur est en cours d'emprunt de livre, alors l'effacement de cet utilisateur ne pourra pas se faire et un message d'erreur sera affiché
-
+  }
     /**
      * Function that diplays the list of all users
      * @return a list of users
      */
     ArrayList listUsers() {
 //- affiche tous les utilisateurs
+        return null;
 }
 
 
@@ -139,7 +142,7 @@ public class Commands {
                 break;
             case 1:
                 displayHelp();
-                break;
+
 
             case 2:
                 programIsOn = false;
@@ -147,50 +150,50 @@ public class Commands {
 
             case 3:
 
-                addUser(new User());
+                addUser();
 
                 break;
 
             case 4:
-                editUser();
+//                editUser();
 
                 break;
 
 
             case 5:
-                removeUser();
+//                removeUser();
                 break;
 
 
             case 6:
-                listUsers();
+//                listUsers();
                 break;
 
             case 7:
-                addBook();
+//                addBook();
 
                 break;
             case 8:
-                editBook();
+//                editBook();
 
                 break;
 
             case 9:
-                removeBook();
+//                removeBook();
                 break;
 
             case 10:
-                listBooks();
+//                listBooks();
             case 11:
-                borrowBook();
+//                borrowBook();
             case 12:
-                returnBook();
+//                returnBook();
             case 13:
-                listBorrows();
+//                listBorrows();
             case 14:
-                save();
+//                save();
             case 15:
-                restore();
+//                restore();
         }
         return true;
     }
@@ -249,6 +252,7 @@ public class Commands {
      */
   static  ArrayList listBooks() {
 // affiche tous les livres
+      return null;
     }
 
     //
@@ -268,42 +272,44 @@ public class Commands {
      * @param ref unique String reference for a book
      * @return the recap of the loan
      */
-   static String returnBook (String ref) {
+//   static String returnBook (String ref) {
+//       return null;
+//   }
 //- cette commande prend en paramètre la référence d'un livre
 //            - si cette référence n'existe pas, alors on affiche une erreur
 //            - si ce livre n'a pas été emprunté, on affiche une erreur
 //            - si ce livre est actuellement emprunté, alors on met a jour l'objet emprunt associé pour mettre la date du rendu (mettre une date aléatoire mais qui soit supérieure à la date d'emprunt)
 //            - afficher le récapitulatif de l'emprunt (utilisateur, ref livre, date d'emprunt, date de rendu)
-}
+
 
     /**
      * Function that display the list of books that are borrowed
      * @return a list of books that are borrows
      */
-    static ArrayList listBorrows() {
+//    static ArrayList listBorrows() {
 //- cette commande affiche la liste des emprunts
 //- vous êtes libres du formalisme d'affichage mais toutes les informations doivent apparaitre
 //            - nom et prénom de l'utilisateur, titre du livre + référence (il faut donc aller chercher le titre à partir de la référence stockée dans l'emprunt), date de début d'emprunt, date de rendu ou vide si pas encore rendu.
-}
+//}
 //
 //
 
     /**
      * Function that save all the informations stored
      */
-    static void save() {
+//    static void save() {
 //- cette commande va sauvegarder toutes vos données liés aux utilisateurs, livres et emprunts sur le disque dur dans des fichiers.
 //- vous êtes libres de sauvegarder un seul fichier qui contient toutes les données ou bien un fichier par utilisateur, un fichier par livre, un fichier par emprunt, ou bien toute combinaison intermédiaire.
 //- le format des données à l'intérieur des fichiers peut etre du texte pur ou tout autre format qui vous semble plus pratique à manipuler.
 //            - vous aurez un bonus sur l'évaluation si vous sauvegardez dans vos fichiers les objets RAM sérialisés (cf. sérialisation et désérialisation des objets Java)
-}
+//}
 
     /**
      * Function that restore all the informations of the last save
-     */
-     static void restore(){
+//     */
+//     static void restore(){
 //- cette commande va détecter la présence des fichiers sauvegardés précédemment (si ils existent) et va les ouvrir en lecture et récupérer les informations contenues dedans pour créer de nouveaux objets en mémoire (utilisateur, livre, emprunt).
-        }
-    }
+//        }
+//    }
 
 
