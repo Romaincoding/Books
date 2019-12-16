@@ -5,6 +5,8 @@ package com.company;
  */
 
 public class Loan {
+    private String userName;
+    private String bookRef;
 //    [>] Les emprunts
 //- nom de l'utilisateur (chaine de caractères)
 //            - le prénom de l'utilisateur (chaine de caractères)
