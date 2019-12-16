@@ -31,11 +31,5 @@ public class Book {
     public String getEditorName() {
         return editorName;
     }
-//    [>] Les livres
-//- le titre (chaine de caractères)
-//- la référence (chaine de caractères arbitraire et unique par livre ex: B312)
-//- l'année de parution (entier)
-//            - le nom de l'éditeur (chaine de caractère)
-
 
 }

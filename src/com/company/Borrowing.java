@@ -1,12 +1,14 @@
 package com.company;
 
+import java.util.Map;
+
 /**
  * Class qui gère l'emprunt
  */
 
 public class Loan {
-    private String userName;
-    private String bookRef;
+    private Map<User, Book> contactsMap;
+    private LoanLogger logger;
 //    [>] Les emprunts
 //- nom de l'utilisateur (chaine de caractères)
 //            - le prénom de l'utilisateur (chaine de caractères)
