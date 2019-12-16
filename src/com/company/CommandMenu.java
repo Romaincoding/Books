@@ -56,31 +56,27 @@ public class CommandMenu {
         User user = UserMgt.findUser(firstName, lastName);
         if(user != null){
            firstName = getLine("What is your new first name? :");
-           if(firstName.equals("") == true){
-               System.out.println("je suis rentré dedans");
+           if(firstName.equals("") == false){
                user.setFirstName(firstName);
-
            }
 
            lastName = getLine("What is your new last name? :");
-            if(lastName.equals("") == true){
+            if(lastName.equals("") == false){
                 user.setLastName(lastName);
             }
 
             int dayBirth = getInt("What is your new day of birth?:",1,31);
             if(dayBirth != -1){
-                System.out.println("je suis la");
                 user.setDayBirth(dayBirth);
             }
             int monthBirth = getInt("What is your new month of birth?:",1,31);
             if(monthBirth != -1){
                 user.setMonthBirth(monthBirth);
             }
-            int yearBirth = getInt("What is your new year of birth?:",1,31);
+            int yearBirth = getInt("What is your new year of birth?:",1900,2020);
             if(yearBirth != -1){
                 user.setYearBirth(yearBirth);
             }
-
         }else{
             System.out.println("User does not exist!");
         }
