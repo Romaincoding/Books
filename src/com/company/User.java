@@ -5,4 +5,10 @@ package com.company;
  */
 
 public class User {
+//    [>] Les utilisateurs (emprunteurs)
+//- le prénom (chaine de caractères)
+//- le nom (chaine de caractères)
+//- le numéro du jour de naissance (entier)
+//- le numéro de mois de naissance (entier)
+//- l'année de naissance (entier)
 }
