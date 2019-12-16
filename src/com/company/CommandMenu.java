@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class CommandMenu {
 
-    private List<Book> booksList = new ArrayList<Book>();
+
     Boolean programIsOn;
 
 
@@ -41,13 +41,10 @@ public class CommandMenu {
 
 
         try {
-            myPrint("Green", "What is your first name? :");
-            Scanner sc = new Scanner(System.in);
-            String firstName = sc.nextLine();
 
-            System.out.println("What is your last name? :");
-            Scanner sc1 = new Scanner(System.in);
-            String lastName = sc1.nextLine();
+            String firstName = getLine("What is your first name? :");
+
+            String lastName = getLine("What is your last name? :");
 
             int dayBirth = getInt("What is your day of birth?:",1,31);
 
@@ -131,7 +128,7 @@ public class CommandMenu {
                 break;
 
             case 7:
-//                addBook();
+               BookMgt.addBook("Le seigneur des anneaux","4356",1937,"Terre du milieu");
 
                 break;
             case 8:
@@ -144,7 +141,7 @@ public class CommandMenu {
                 break;
 
             case 10:
-//                listBooks();
+                System.out.println(BookMgt.getBooksList());
                 break;
             case 11:
 //                borrowBook();
@@ -191,6 +188,19 @@ public class CommandMenu {
        }
         return number;
     }
+
+    /**
+     * Function that reads string input
+     * @param message to display
+     * @return string
+     */
+    private static String getLine(String message){
+        System.out.println(message);
+        Scanner sc = new Scanner(System.in);
+        String string = sc.nextLine();
+        return string;
+
+   }
 
     /**
      * Function wich creates a new book
