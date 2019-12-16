@@ -35,64 +35,55 @@ public class CommandMenu {
         }
     }
 
-
-
     static void addUser() {
-
-
         try {
-
             String firstName = getLine("What is your first name? :");
-
             String lastName = getLine("What is your last name? :");
-
             int dayBirth = getInt("What is your day of birth?:",1,31);
-
             int monthBirth = getInt("What is your month of birth?:", 1, 12);
-
             int yearBirth = getInt("What is your year of birth?:",1900,2021);
 
             UserMgt.addUser(firstName, lastName, dayBirth, monthBirth, yearBirth);
 
-
         } catch (Exception e) {
             e.getStackTrace();
-
-
         }
-
-
     }
 
+    static void editUser(){
+        String firstName = getLine("What is your first name? :");
+        String lastName = getLine("What is your last name? :");
+        User user = UserMgt.findUser(firstName, lastName);
+        if(user != null){
+           firstName = getLine("What is your new first name? :");
+           if(firstName.equals("") == true){
+               System.out.println("je suis rentré dedans");
+               user.setFirstName(firstName);
 
+           }
 
+           lastName = getLine("What is your new last name? :");
+            if(lastName.equals("") == true){
+                user.setLastName(lastName);
+            }
 
+            int dayBirth = getInt("What is your new day of birth?:",1,31);
+            if(dayBirth != -1){
+                System.out.println("je suis la");
+                user.setDayBirth(dayBirth);
+            }
+            int monthBirth = getInt("What is your new month of birth?:",1,31);
+            if(monthBirth != -1){
+                user.setMonthBirth(monthBirth);
+            }
+            int yearBirth = getInt("What is your new year of birth?:",1,31);
+            if(yearBirth != -1){
+                user.setYearBirth(yearBirth);
+            }
 
-    /**
-     * Function that displays the menu
-     */
-
-
-    static void displayHelp() {
-        myPrint("Blue", "**********************************");
-        myPrint("Blue", "*       Menu                     *");
-        myPrint("Blue", "*  1-Help                        *");
-        myPrint("Blue", "*  2-Exit                        *");
-        myPrint("Blue", "*  3-addUser                     *");
-        myPrint("Blue", "*  4-editUser                    *");
-        myPrint("Blue", "*  5-removeUser                  *");
-        myPrint("Blue", "*  6-listUser                    *");
-        myPrint("Blue", "*  7-addBook                     *");
-        myPrint("Blue", "*  8-editBook                    *");
-        myPrint("Blue", "*  9-removeBook                  *");
-        myPrint("Blue", "*  10-listBooks                  *");
-        myPrint("Blue", "*  11-borrowBook                 *");
-        myPrint("Blue", "*  12-returnBook                 *");
-        myPrint("Blue", "*  13-listBorrows                *");
-        myPrint("Blue", "*  14-save                       *");
-        myPrint("Blue", "*  15-restore                    *");
-        myPrint("Blue", "**********************************");
-
+        }else{
+            System.out.println("User does not exist!");
+        }
     }
 
     static boolean processCmd(int choice) {
@@ -111,11 +102,12 @@ public class CommandMenu {
                 break;
 
             case 3:
-                addUser();
+//                addUser();
+                UserMgt.addUser("Cristobal", "troudebal", 2 ,7, 1982);
                 break;
 
             case 4:
-                //editUser("mich","mouch");
+                editUser();
                 break;
 
             case 5:
@@ -161,6 +153,31 @@ public class CommandMenu {
         }
         return programIsOn;
     }
+
+    /**
+     * Function that displays the menu
+     */
+    static void displayHelp() {
+        myPrint("Blue", "**********************************");
+        myPrint("Blue", "*       Menu                     *");
+        myPrint("Blue", "*  1-Help                        *");
+        myPrint("Blue", "*  2-Exit                        *");
+        myPrint("Blue", "*  3-addUser                     *");
+        myPrint("Blue", "*  4-editUser                    *");
+        myPrint("Blue", "*  5-removeUser                  *");
+        myPrint("Blue", "*  6-listUser                    *");
+        myPrint("Blue", "*  7-addBook                     *");
+        myPrint("Blue", "*  8-editBook                    *");
+        myPrint("Blue", "*  9-removeBook                  *");
+        myPrint("Blue", "*  10-listBooks                  *");
+        myPrint("Blue", "*  11-borrowBook                 *");
+        myPrint("Blue", "*  12-returnBook                 *");
+        myPrint("Blue", "*  13-listBorrows                *");
+        myPrint("Blue", "*  14-save                       *");
+        myPrint("Blue", "*  15-restore                    *");
+        myPrint("Blue", "**********************************");
+
+    }
 //    [#1] help
 //- cette commande doit afficher toutes les commandes possibles de votre application ainsi que le formalisme (décrit ci-dessous pour chaque commande)
 //
@@ -179,14 +196,30 @@ public class CommandMenu {
       * @param message to display
      * @return int
      */
-   private static int getInt(String message,int min, int max){
-        System.out.println(message);
+   private static int getInt(String message,int min, int max) {
+       try {
+           System.out.println(message);
+           Scanner sc = new Scanner(System.in);
+           int number = sc.nextInt();
+           if (number <= min || number >= max) {
+               System.out.println("Please enter a correct value");
+               return -1;
+           }
+           return number;
+       } catch (Exception e) {
+           return -1;
+       }
+   }
+
+
+    private static int getInt(String message){
+      try{  System.out.println(message);
         Scanner sc = new Scanner(System.in);
         int number = sc.nextInt();
-       if(number <= min || number >= max) {
-           System.out.println("Please enter a correct value");
-       }
         return number;
+      }catch (Exception e) {
+          return -1;
+      }
     }
 
     /**
@@ -217,10 +250,7 @@ public class CommandMenu {
     }
 
     public static int getUserChoice() {
-        System.out.println("Enter your choice:");
-        Scanner sc = new Scanner(System.in);
-        int choice = sc.nextInt();
-        return choice;
+        return getInt("Enter your choice");
     }
 //- cette commande prend en paramètre le prénom et le nom d'un utilisateur ainsi que la référence du livre à emprunter
 //            - si l'utilisateur n'existe pas on affiche une erreur.

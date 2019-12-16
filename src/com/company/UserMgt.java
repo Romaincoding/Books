@@ -18,7 +18,7 @@ public class UserMgt {
      * @param firstName firstname of the user
      * @param lastName lastname of the user
      */
-    User findUser( String firstName,  String lastName) {
+    public static User findUser( String firstName,  String lastName) {
         for(User user:userList) {
             if(user.getFirstName().equals(firstName)  && user.getLastName().equals(lastName)) {
               return user;
@@ -26,6 +26,8 @@ public class UserMgt {
         }
         return null;
     }
+
+
 
 
 //        userList.contains();
@@ -46,15 +48,16 @@ public class UserMgt {
             if(user.getFirstName().equals(firstName)  && user.getLastName().equals(lastName)) {
                userList.remove(user);
                 CommandMenu.myPrint("Blue","Delete ok");
+                return;
             }
         }
-        return null;
+        System.out.println(" User not found");
     }
 //- cette commande recherche un utilisateur avec le meme nom ET prénom rentrés et va le supprimer de la liste.
 //- si l'utilisateur recherché n'existe pas, alors on affiche un message d'erreur comme quoi il est introuvable.
 //            - si l'utilisateur existe, il est supprimé de la liste en mémoire, et on affiche un message de réussite de l'effacement.
 //- si l'utilisateur est en cours d'emprunt de livre, alors l'effacement de cet utilisateur ne pourra pas se faire et un message d'erreur sera affiché
-    }
+
     /**
      * Function that diplays the list of all users
      * @return a list of users

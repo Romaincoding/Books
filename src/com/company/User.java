@@ -8,7 +8,6 @@ import java.util.List;
 
 public class User {
 
-
     private String firstName;
     private String lastName;
     private int dayBirth;
@@ -56,6 +55,26 @@ public class User {
 
     public int getYearBirth() {
         return yearBirth;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setDayBirth(int dayBirth) {
+        this.dayBirth = dayBirth;
+    }
+
+    public void setMonthBirth(int monthBirth) {
+        this.monthBirth = monthBirth;
+    }
+
+    public void setYearBirth(int yearBirth) {
+        this.yearBirth = yearBirth;
     }
 
 
