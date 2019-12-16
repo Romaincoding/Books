@@ -1,10 +1,107 @@
 package com.company;
 
+import java.util.ArrayList;
+
 /**
  * Class qui gère les commandes
  */
 
 public class Commands {
+
+    static void myPrint(String color, String message) {
+        switch (color) {
+            case "Blue":
+                System.out.println("\033[34m" + message + "\033[0m");
+                break;
+            case "Green":
+                System.out.println("\033[32m" + message + "\033[0m");
+                break;
+            case "Red":
+                System.out.println("\033[31m" + message + "\033[0m");
+                break;
+            case "Yellow":
+                System.out.println("\033[33m" + message + "\033[0m");
+                break;
+            default:
+                System.out.println("Error Unknown Color");
+        }
+    }
+
+
+        /**
+         * Function that displays the menu
+         */
+
+
+        static void displayHelp () {
+            myPrint("Blue", "**********************************");
+            myPrint("Blue", "*       Menu                     *");
+            myPrint("Blue", "*  1-Help                        *");
+            myPrint("Blue", "*  2-Exit                        *");
+            myPrint("Blue", "*  3-addUser                     *");
+            myPrint("Blue", "*  4-editUser                    *");
+            myPrint("Blue", "*  5-removeUser                  *");
+            myPrint("Blue", "*  6-listUser                    *");
+            myPrint("Blue", "*  7-addBook                     *");
+            myPrint("Blue", "*  8-editBook                    *");
+            myPrint("Blue", "*  9-removeBook                  *");
+            myPrint("Blue", "*  10-listBooks                  *");
+            myPrint("Blue", "*  11-borrowBook                 *");
+            myPrint("Blue", "*  12-returnBook                 *");
+            myPrint("Blue", "*  13-listBorrows                *");
+            myPrint("Blue", "*  14-save                       *");
+            myPrint("Blue", "*  15-restore                    *");
+            myPrint("Blue", "**********************************");
+
+        }
+
+        static boolean processCmd ( int choice){
+            boolean programIsOn = true;
+
+            switch (choice) {
+                default:
+                    System.out.println("Command not supported");
+                    break;
+                case 1://
+                    displayHelp();
+                    break;
+
+                case 2:
+
+                    break;
+
+                case 3:
+
+                    break;
+
+                case 4:
+
+                    break;
+
+
+                case 5:
+                    break;
+
+
+                case 6:
+                    break;
+
+                case 7:
+                    break;
+                case 8:
+                    break;
+
+                case 9:
+                    break;
+
+                case 10:
+                case 11:
+                case 12:
+                case 13:
+                case 14:
+                case 15:
+            }
+            return true;
 //    [#1] help
 //- cette commande doit afficher toutes les commandes possibles de votre application ainsi que le formalisme (décrit ci-dessous pour chaque commande)
 //
@@ -65,4 +162,7 @@ public class Commands {
 //
 //            [#15] restore
 //- cette commande va détecter la présence des fichiers sauvegardés précédemment (si ils existent) et va les ouvrir en lecture et récupérer les informations contenues dedans pour créer de nouveaux objets en mémoire (utilisateur, livre, emprunt).
-}
+        }
+    }
+
+
