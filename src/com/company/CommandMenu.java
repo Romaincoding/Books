@@ -10,7 +10,7 @@ import java.util.Scanner;
  * Class qui gère les commandes
  */
 
-public class Commands {
+public class CommandMenu {
 
     private List<Book> booksList = new ArrayList<Book>();
     Boolean programIsOn;
@@ -49,27 +49,13 @@ public class Commands {
             Scanner sc1 = new Scanner(System.in);
             String lastName = sc1.nextLine();
 
-            System.out.println("What is your day of birth?:");
-            Scanner sc2 = new Scanner(System.in);
-            int dayBirth = sc2.nextInt();
-            if(dayBirth <= 1 || dayBirth >= 31) {
-                System.out.println("Please enter a correct day of Birth");
-            }
+            int dayBirth = getInt("What is your day of birth?:",1,31);
 
-            System.out.println("What is your month of birth? :");
-            Scanner sc3 = new Scanner(System.in);
-            int monthBirth = sc3.nextInt();
-            if(monthBirth <= 1 || monthBirth >= 12) {
-                throw new Exception("Please enter a correct month of Birth");
-            }
+            int monthBirth = getInt("What is your month of birth?:", 1, 12);
 
-            System.out.println("What is your year of birth? :");
-            Scanner sc4 = new Scanner(System.in);
-            int yearBirth = sc4.nextInt();
+            int yearBirth = getInt("What is your year of birth?:",1900,2021);
 
-//            User user = new User(firstName, lastName, dayBirth, monthBirth, yearBirth);
-//            userList.add(user);
-//            System.out.println(userList.get(0));
+            UserMgt.addUser(firstName, lastName, dayBirth, monthBirth, yearBirth);
 
 
         } catch (Exception e) {
@@ -121,23 +107,19 @@ public class Commands {
                 break;
             case 1:
                 displayHelp();
-
+                break;
 
             case 2:
                 programIsOn = false;
                 break;
 
             case 3:
-
                 addUser();
-
-
+                break;
 
             case 4:
                 //editUser("mich","mouch");
-
                 break;
-
 
             case 5:
 //                removeUser();
@@ -145,7 +127,7 @@ public class Commands {
 
 
             case 6:
-//                listUsers();
+                System.out.println( UserMgt.getUserList());
                 break;
 
             case 7:
@@ -163,16 +145,22 @@ public class Commands {
 
             case 10:
 //                listBooks();
+                break;
             case 11:
 //                borrowBook();
+                break;
             case 12:
 //                returnBook();
+                break;
             case 13:
 //                listBorrows();
+                break;
             case 14:
 //                save();
+                break;
             case 15:
 //                restore();
+                break;
         }
         return programIsOn;
     }
@@ -190,6 +178,21 @@ public class Commands {
 //
 
     /**
+     * Function that reads integer input
+      * @param message to display
+     * @return int
+     */
+   private static int getInt(String message,int min, int max){
+        System.out.println(message);
+        Scanner sc = new Scanner(System.in);
+        int number = sc.nextInt();
+       if(number <= min || number >= max) {
+           System.out.println("Please enter a correct value");
+       }
+        return number;
+    }
+
+    /**
      * Function wich creates a new book
      *
      * @param title      title of the book
@@ -201,6 +204,13 @@ public class Commands {
     //
 //
     static void borrowBook(String firstName, String lastname, String ref) {
+    }
+
+    public static int getUserChoice() {
+        System.out.println("Enter your choice:");
+        Scanner sc = new Scanner(System.in);
+        int choice = sc.nextInt();
+        return choice;
     }
 //- cette commande prend en paramètre le prénom et le nom d'un utilisateur ainsi que la référence du livre à emprunter
 //            - si l'utilisateur n'existe pas on affiche une erreur.

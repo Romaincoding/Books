@@ -14,16 +14,13 @@ public class App {
 //       String test2 = test.toString();
 //        System.out.println(test2);
         do {
-            UserMgt.addUser("michel", "polnareff",23,4,1345);
-            UserMgt.addUser("gerald", "polnareff",23,4,1345);
-            UserMgt.addUser("Robert", "polnareff",23,4,1345);
-            System.out.println(UserMgt.getUserList());
-            break;
+            CommandMenu.displayHelp();
+            int ch = CommandMenu.getUserChoice();
+            // System.out.println(ch);
+           programIsOn = CommandMenu.processCmd(ch);
 
-        } while (programIsOn == true);
-
-
-
+        }
+        while (programIsOn == true);
 
 	// write your code here
     }
