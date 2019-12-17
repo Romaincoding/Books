@@ -4,7 +4,7 @@ import java.util.List;
 
 public class App {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         boolean programIsOn = false;
 //        List<User> userList = null;
 //        Library library = new Library();

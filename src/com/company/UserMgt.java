@@ -6,7 +6,7 @@ import java.util.List;
 public class UserMgt {
 
 
-    private static ArrayList<User> userList = new ArrayList<User>();
+    public static final ArrayList<User> userList = new ArrayList<User>();
 
 
     public static void addUser(String firstName, String lastName, int dayBirth, int monthBirth, int yearBirth){

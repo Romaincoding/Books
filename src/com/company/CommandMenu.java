@@ -82,7 +82,7 @@ public class CommandMenu {
         }
     }
 
-    static boolean processCmd(int choice) {
+    static boolean processCmd(int choice) throws Exception {
         boolean programIsOn = true;
 
         switch (choice) {
@@ -146,11 +146,11 @@ public class CommandMenu {
             case 12:
                 BookMgt.addBook("Le seigneur des anneaux","4356",1937,"Terre du milieu");
                 UserMgt.addUser("toto", "beau", 2 ,7, 1982);
-                User test =  UserMgt.findUser("toto", "beau");
-                Borrow.addBorrow("4356", test);
+                User testUser =  UserMgt.findUser("toto", "beau");
+                Borrow.addBorrow("4356", testUser);
 
-               Borrow.returnBook("4356");
-                System.out.println(Borrow.getBorrowMap());
+                System.out.println(Borrow.getUser("435")); ;
+              //  System.out.println(Borrow.getBorrowMap());
                 break;
             case 13:
 //                listBorrows();

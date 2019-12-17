@@ -1,5 +1,7 @@
 package com.company;
 
+import jdk.swing.interop.SwingInterOpUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,33 +12,59 @@ import java.util.Map;
 public class Borrow {
 
 
-    private static  Map<Book, User> borrowMap;
+    private static  Map<String, User> borrowMap = new HashMap<>(); ;
     private BorrowLogger logger;
-    private static Book book;
-    User user;
+
 
     Borrow() {
-        borrowMap = new HashMap<>();
+
 
     }
 
-   public static void addBorrow(String bookRef, User user) {
+   public static void  addBorrow(String firstName, String lastName, String bookRef) {
+        for(User user:UserMgt.getUserList()) {
+           if(user.getFirstName().equals(firstName)  && user.getLastName().equals(lastName)) {
+
+           }else{
+               System.out.println("User does not exist"); //- si l'utilisateur n'existe pas on affiche une erreur.
+           }
+          for(Book book:BookMgt.getBooksList()) {
+              if(book.getRef().equals(bookRef)){
+                  if(borrowMap.containsKey(bookRef)) {
+                      System.out.println("Book is already borrowed");
+                  }else {
+                      borrowMap.put(bookRef,user);
+                  }
+
+              }else {
+                  System.out.println("Book does not exist"); // si la référence du livre n'existe pas on affiche une erreur.
+              }
+              }
+          }
+          }
+//       if (borrowMap.containsKey(bookRef)) {
+//           System.out.println("The book is already borrowed");
+//       }
+//      borrowMap.forEach(bookRef, User );
+//
+//        }
+//       }
        Borrow b = new Borrow();
-       borrowMap.put(book, user);
-        System.out.println("Ajout d'un contact=" + b);
+       borrowMap.put(bookRef, user);
+        System.out.println("Add a borrow=" + b);
 
 
     }
 
-   User getUser (String bookRef) throws Exception {
+   static User getUser(String bookRef) {
        User b = borrowMap.get(bookRef);
         if (b == null) {
-            throw new Exception("Contact not found for key=" + bookRef);
+            System.out.println("Book not found for key=" + bookRef);
         }
         return b;
     }
 
-    public static Map<Book, User> getBorrowMap() {
+    public static Map<String, User> getBorrowMap() {
         return borrowMap;
     }
     /**

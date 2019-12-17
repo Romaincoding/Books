@@ -13,7 +13,7 @@ public class BorrowLogger {
 
         String timestampStr = sdf.format(new Date());
         try {
-            File f = new File("Borrowings.log");
+            File f = new File("Borrowings.txt");
             FileWriter fileWriter = new FileWriter(f, true);
             fileWriter.write(timestampStr + " - " +message + "\n");
             fileWriter.close();
