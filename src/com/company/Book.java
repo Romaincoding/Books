@@ -5,6 +5,8 @@ package com.company;
  */
 
 public class Book {
+
+
     private String title;
     private String ref;
     private int dateOfParution;
@@ -40,5 +42,20 @@ public class Book {
                 ", dateOfParution=" + dateOfParution +
                 ", editorName='" + editorName + '\'' +
                 '}';
+    }
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setRef(String ref) {
+        this.ref = ref;
+    }
+
+    public void setDateOfParution(int dateOfParution) {
+        this.dateOfParution = dateOfParution;
+    }
+
+    public void setEditorName(String editorName) {
+        this.editorName = editorName;
     }
 }

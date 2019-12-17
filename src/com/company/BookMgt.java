@@ -7,20 +7,34 @@ public class BookMgt {
 
     private static ArrayList<Book> booksList = new ArrayList<Book>();
 
-
+    /**
+     * Function wich creates a new book
+     *
+     * @param title      title of the book
+     * @param ref        unique String reference for a book
+     * @param year       parution date of the book
+     * @param editorName name of the editor of the book
+     */
     public static void addBook(String title, String ref, int year, String editorName) {
+        for (Book book : booksList) {
+            if (book.getRef().equals(ref)) {
+                System.out.println("Book  already exists!");
+                return;
+            }
+        }
         Book book = new Book(title, ref, year, editorName);
         booksList.add(book);
+    }
 //- cherche d'abord un livre qui porte la meme référence (ou le même titre ET la même année ET le même distributeur). Si un livre avec la meme référence (ou le même titre ET la même année ET le même éditeur) existe deja dans la mémoire, alors on affiche un message d'erreur (avec les infos du livre existant par exemple)
 //
-    }
+
 
     /**
      * Function that allows to update information of a book
      *
      * @param ref unique String reference for a book
      */
-    Book findBook(String ref) {
+    static Book findBook(String ref) {
         for (Book book : booksList) {
             if (book.getRef().equals(ref)) {
                 return book;

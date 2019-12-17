@@ -35,22 +35,12 @@ public class UserMgt {
     }
 
 
-
-
-//        userList.contains();
-//- la commande recherche un utilisateur avec exactement le patronyme rentré. Si l'utilisateur existe, alors la commande demande le nouveau nom (si on entre une chaine vide, alors pas de changement de nom), demande ensuite le nouveau prénom (si chaine vide, pas de changement) et va demander ensuite chaque champ du jour, mois, année de naissance (toujours avec la possibilité de ne pas changer la valeur en appuyant sur entrée pour laisser une chaine vide).
-//            - la commande va ensuite vérifier les nouvelles informations entrées (comme le fait adduser) et enregistrer les modifications de l'utilisateur DANS LE MEME OBJET (on modifie l'utilisateur, on n'en créé pas de nouveau). SI une erreur est survenue dans la saisie des nouvelles valeurs (ex : le nouveau nom et le nouveau prénom existent deja, ou bien une nouvelle date de naissance qui n'est pas un entier) alors on ne modifie pas l'utilisateur et on affiche un message d'erreur.
-//- si l'utilisateur recherché n'existe pas dans la liste, alors on affiche un message d'erreur.
-//            - si l'utilisateur est en cours d'emprunt, alors on ne pourra pas le modifier et un message d'erreur sera affiché
-
-
-
     /**
      * Function that allows to delete a user
      * @param firstName firstname of the user
      * @param lastName lastname of the user
      */
-    void removeUser(String firstName, String lastName) {
+    static void removeUser(String firstName, String lastName) {
         for(User user:userList) {
             if(user.getFirstName().equals(firstName)  && user.getLastName().equals(lastName)) {
                userList.remove(user);

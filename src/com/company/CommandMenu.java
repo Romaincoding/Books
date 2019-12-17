@@ -100,7 +100,8 @@ public class CommandMenu {
             case 3:
 //                addUser();
 
-                UserMgt.addUser("toto", "beau", 2 ,7, 1982);
+               UserMgt.addUser("toto", "beau", 2 ,7, 1982);
+               ArrayList testList = UserMgt.getUserList();
                 System.out.println(UserMgt.getUserList());
 
                 // System.out.println(UserMgt.getUserList());
@@ -111,7 +112,7 @@ public class CommandMenu {
                 break;
 
             case 5:
-//                removeUser();
+              UserMgt.removeUser("toto","beau");
                 break;
 
 
@@ -136,10 +137,20 @@ public class CommandMenu {
                 System.out.println(BookMgt.getBooksList());
                 break;
             case 11:
-//                borrowBook();
+//                BookMgt.addBook("Le seigneur des anneaux","4356",1937,"Terre du milieu");
+//                UserMgt.addUser("toto", "beau", 2 ,7, 1982);
+//                User test =  UserMgt.findUser("toto", "beau");
+//                Borrow.addBorrow("4356", test);
+//                System.out.println(Borrow.getBorrowMap());
                 break;
             case 12:
-//                returnBook();
+                BookMgt.addBook("Le seigneur des anneaux","4356",1937,"Terre du milieu");
+                UserMgt.addUser("toto", "beau", 2 ,7, 1982);
+                User test =  UserMgt.findUser("toto", "beau");
+                Borrow.addBorrow("4356", test);
+
+               Borrow.returnBook("4356");
+                System.out.println(Borrow.getBorrowMap());
                 break;
             case 13:
 //                listBorrows();
@@ -177,6 +188,18 @@ public class CommandMenu {
         myPrint("Blue", "*  15-restore                    *");
         myPrint("Blue", "**********************************");
 
+    }
+
+    static void editBook() {
+        String bookRef = getLine("What is the book reference? :");
+       Book book = BookMgt.findBook(bookRef);
+        if (book != null) {
+            String title = getLine("What is the book's title? :");
+            if (bookRef.equals("") == false) {
+                book.setTitle(title);
+
+            }
+        }
     }
 //    [#1] help
 //- cette commande doit afficher toutes les commandes possibles de votre application ainsi que le formalisme (décrit ci-dessous pour chaque commande)
@@ -239,17 +262,6 @@ public class CommandMenu {
 
    }
 
-    /**
-     * Function wich creates a new book
-     *
-     * @param title      title of the book
-     * @param ref        unique String reference for a book
-     * @param year       parution date of the book
-     * @param editorName name of the editor of the book
-     */
-
-    //
-//
     static void borrowBook(String firstName, String lastname, String ref) {
     }
 
@@ -264,32 +276,7 @@ public class CommandMenu {
 //            - afficher le récapitulatif de l'emprunt (utilisateur, ref livre, date d'emprunt)
 }
 
-    /**
-     * Function that allows to signal the ends of a book's borrowing
-     * @param ref unique String reference for a book
-     * @return the recap of the loan
-     */
-//   static String returnBook (String ref) {
-//       return null;
-//   }
-//- cette commande prend en paramètre la référence d'un livre
-//            - si cette référence n'existe pas, alors on affiche une erreur
-//            - si ce livre n'a pas été emprunté, on affiche une erreur
-//            - si ce livre est actuellement emprunté, alors on met a jour l'objet emprunt associé pour mettre la date du rendu (mettre une date aléatoire mais qui soit supérieure à la date d'emprunt)
-//            - afficher le récapitulatif de l'emprunt (utilisateur, ref livre, date d'emprunt, date de rendu)
 
-
-    /**
-     * Function that display the list of books that are borrowed
-     * @return a list of books that are borrows
-     */
-//    static ArrayList listBorrows() {
-//- cette commande affiche la liste des emprunts
-//- vous êtes libres du formalisme d'affichage mais toutes les informations doivent apparaitre
-//            - nom et prénom de l'utilisateur, titre du livre + référence (il faut donc aller chercher le titre à partir de la référence stockée dans l'emprunt), date de début d'emprunt, date de rendu ou vide si pas encore rendu.
-//}
-//
-//
 
     /**
      * Function that save all the informations stored
