@@ -22,39 +22,32 @@ public class Borrow {
     }
 
    public static void  addBorrow(String firstName, String lastName, String bookRef) {
-        for(User user:UserMgt.getUserList()) {
-           if(user.getFirstName().equals(firstName)  && user.getLastName().equals(lastName)) {
-
-           }else{
-               System.out.println("User does not exist"); //- si l'utilisateur n'existe pas on affiche une erreur.
+       User user = UserMgt.findUser(firstName, lastName);
+       Book book = null;
+       if (user != null) {
+           if (BookMgt.findBook(bookRef) != null) {
+               if (borrowMap.containsKey(bookRef)) {
+                   CommandMenu.myPrint("Red", "Book already borrowed");
+               } else {
+                   borrowMap.put(bookRef, user);
+                   CommandMenu.myPrint("Green", firstName + " " + lastName + " has borrowed " + "Book " + bookRef);
+               }
            }
-          for(Book book:BookMgt.getBooksList()) {
-              if(book.getRef().equals(bookRef)){
-                  if(borrowMap.containsKey(bookRef)) {
-                      System.out.println("Book is already borrowed");
-                  }else {
-                      borrowMap.put(bookRef,user);
-                  }
-
-              }else {
-                  System.out.println("Book does not exist"); // si la référence du livre n'existe pas on affiche une erreur.
-              }
-              }
-          }
-          }
-//       if (borrowMap.containsKey(bookRef)) {
-//           System.out.println("The book is already borrowed");
-//       }
-//      borrowMap.forEach(bookRef, User );
-//
-//        }
-//       }
-       Borrow b = new Borrow();
-       borrowMap.put(bookRef, user);
-        System.out.println("Add a borrow=" + b);
+           else {
+               CommandMenu.myPrint("Red", "Book does not exist");
+           }
+       } else {
+           CommandMenu.myPrint("Red", "User does not exist"); //- si l'utilisateur n'existe pas on affiche une erreur.
+       }
+   }
 
 
-    }
+
+
+
+
+
+
 
    static User getUser(String bookRef) {
        User b = borrowMap.get(bookRef);
