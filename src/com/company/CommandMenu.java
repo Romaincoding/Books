@@ -1,9 +1,6 @@
 package com.company;
 
-import jdk.swing.interop.SwingInterOpUtils;
-
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -82,6 +79,23 @@ public class CommandMenu {
         }
     }
 
+    static void removeUser(){
+       UserMgt.removeUser("toto","beau");
+    }
+    static void removeBook(){
+        BookMgt.removeBook("3");
+    }
+
+    static void addBorrow(){
+         BorrowMgt.addBorrow("Michel","Polna","2");
+    }
+    static void endBorrow(){
+       BorrowMgt.returnBook("2");
+    }
+    static void listBorrows(){
+        BorrowMgt.listBorrows();
+    }
+
     static boolean processCmd(int choice) throws Exception {
         boolean programIsOn = true;
 
@@ -98,13 +112,7 @@ public class CommandMenu {
                 break;
 
             case 3:
-//                addUser();
-
-               UserMgt.addUser("toto", "beau", 2 ,7, 1982);
-               ArrayList testList = UserMgt.getUserList();
-                System.out.println(UserMgt.getUserList());
-
-                // System.out.println(UserMgt.getUserList());
+                addUser();
                 break;
 
             case 4:
@@ -112,7 +120,7 @@ public class CommandMenu {
                 break;
 
             case 5:
-              UserMgt.removeUser("toto","beau");
+             removeUser();
                 break;
 
 
@@ -125,35 +133,26 @@ public class CommandMenu {
 
                 break;
             case 8:
-//                editBook();
 
+                editBook();
                 break;
 
             case 9:
-//                removeBook();
+                removeBook();
                 break;
 
             case 10:
                 System.out.println(BookMgt.getBooksList());
                 break;
             case 11:
-//                BookMgt.addBook("Le seigneur des anneaux","4356",1937,"Terre du milieu");
-//                UserMgt.addUser("toto", "beau", 2 ,7, 1982);
-//                User test =  UserMgt.findUser("toto", "beau");
-//                Borrow.addBorrow("4356", test);
-//                System.out.println(Borrow.getBorrowMap());
+
+                addBorrow();
                 break;
             case 12:
-                BookMgt.addBook("Le seigneur des anneaux","4356",1937,"Terre du milieu");
-                UserMgt.addUser("toto", "beau", 2 ,7, 1982);
-                User testUser =  UserMgt.findUser("toto", "beau");
-                Borrow.addBorrow("4356", testUser);
-
-                System.out.println(Borrow.getUser("435")); ;
-              //  System.out.println(Borrow.getBorrowMap());
+                  endBorrow();           //  System.out.println(Borrow.getBorrowMap());
                 break;
             case 13:
-//                listBorrows();
+               listBorrows();
                 break;
             case 14:
 //                save();
@@ -161,6 +160,24 @@ public class CommandMenu {
             case 15:
 //                restore();
                 break;
+            case 20:
+                BookMgt.addBook("Le seigneur des anneaux","1",1937,"Terre du milieu");
+                BookMgt.addBook("Le seigneur des anus","2",1937,"Trou du milieu");
+                BookMgt.addBook("Le seigneur des anales","3",1937,"Trous des milieux");
+                UserMgt.addUser("toto", "beau", 2 ,7, 1982);
+                UserMgt.addUser("tata", "yoyo", 3 ,11, 1984);
+                UserMgt.addUser("titi", "grominet", 3 ,11, 1984);
+                BorrowMgt.addBorrow("toto", "beau","1");
+                BorrowMgt.addBorrow("tata", "yoyo","2");
+                BorrowMgt.addBorrow("titi", "grominet","2");
+                BorrowMgt.listBorrows();
+                BorrowMgt.returnBook("1");
+                BorrowMgt.listBorrows();
+                System.out.println(BorrowMgt.getUser("1"));
+                System.out.println(BorrowMgt.getUser("2"));
+
+
+
         }
         return programIsOn;
     }
