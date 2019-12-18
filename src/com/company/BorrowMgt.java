@@ -2,6 +2,7 @@ package com.company;
 
 import jdk.swing.interop.SwingInterOpUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,8 +12,7 @@ import java.util.Map;
 
 public class BorrowMgt {
 
-
-    private static  Map<String, User> borrowMap = new HashMap<>();
+    public static final ArrayList<Borrow> borrowList = new ArrayList<Borrow>();
     private BorrowLogger logger;
 
 
@@ -25,11 +25,12 @@ public class BorrowMgt {
        User user = UserMgt.findUser(firstName, lastName);
        Book book = null;
        if (user != null) {
-           if (BookMgt.findBook(bookRef) != null) {
-               if (borrowMap.containsKey(bookRef)) {
+           book = BookMgt.findBook(bookRef);
+           if (book != null) {
+               if (getBorrow(book) != null) {
                    CommandMenu.myPrint("Red", "Book already borrowed");
                } else {
-                   borrowMap.put(bookRef, user);
+                   borrowList.add(new Borrow(user,book));
                    CommandMenu.myPrint("Green", firstName + " " + lastName + " has borrowed " + "Book " + bookRef);
                }
            }
@@ -41,28 +42,45 @@ public class BorrowMgt {
        }
    }
 
-   static User getUser(String bookRef) {
-       User b = borrowMap.get(bookRef);
-        if (b == null) {
-            System.out.println("Book not found for key=" + bookRef);
-        }
-        return b;
-    }
+   static Borrow getBorrow(Book book) {
+       for (Borrow borrow : borrowList) {
+           if (borrow.getBook().equals(book)) {
+               return borrow;
+           }
+       }
+       return null;
+   }
 
-    public static Map<String, User> getBorrowMap() {
-        return borrowMap;
-    }
+
+
+//
+//   static User getUser(String bookRef) {
+//       User b = borrowMap.get(bookRef);
+//        if (b == null) {
+//            System.out.println("Book not found for key=" + bookRef);
+//        }
+//        return b;
+//    }
+
+
     /**
      * Function that allows to signal the ends of a book's borrowing
-     * @param ref unique String reference for a book
+     * @param bookref unique String reference for a book
      * @return the recap of the loan
      */
    static  void returnBook (String bookRef) {
-       if(borrowMap.containsKey(bookRef)) {
-           borrowMap.remove(bookRef);
-       }else {
-           System.out.println("This book is not borrowed");
-       }
+        Book book = BookMgt.findBook(bookRef);
+         if(book != null){
+             Borrow borrow = getBorrow(book);
+             if(borrow != null){
+                 borrow.setReturnDate();
+             }
+             else{
+                 System.out.println("Borrow not found!");
+             }
+         }else{
+             System.out.println("Bookref not found!");
+         }
    }
 
 //- cette commande prend en paramètre la référence d'un livre
@@ -77,24 +95,8 @@ public class BorrowMgt {
      * @return a list of books that are borrows
      */
     public static void listBorrows() {
-       System.out.println(borrowMap.toString());
-//        Map<String, User> hashMap = null;
-        for (Map.Entry<String, User> entry: borrowMap.entrySet()) {
-            System.out.printf("Book ref : %s  |  User : %s %s\n", entry.getKey(), entry.getValue().getFirstName(), entry.getValue().getLastName());
+        for (Borrow borrow: borrowList){
+            System.out.println(borrow.toString());
         }
-
     }
 }
-//- cette commande affiche la liste des emprunts
-//- vous êtes libres du formalisme d'affichage mais toutes les informations doivent apparaitre
-//            - nom et prénom de l'utilisateur, titre du livre + référence (il faut donc aller chercher le titre à partir de la référence stockée dans l'emprunt), date de début d'emprunt, date de rendu ou vide si pas encore rendu.
-//}
-//
-//
-//    [>] Les emprunts
-//- nom de l'utilisateur (chaine de caractères)
-//            - le prénom de l'utilisateur (chaine de caractères)
-//            - la référence du livre (chaine de caractères)
-//- la date du jour de l'emprunt (vous êtes libres du format exact à implémenter)
-//            - la date de rendu (vous êtes libres du format exact à implémenter. N'oubliez pas de spécifier la valeur à utiliser pour un livre qui n'a pas encore été rendu)
-

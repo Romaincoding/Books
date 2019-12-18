@@ -98,7 +98,10 @@ public class CommandMenu {
 
     static boolean processCmd(int choice) throws Exception {
         boolean programIsOn = true;
+      //  String entry = sc.nextLine
+        //        entry.split()
 
+                
         switch (choice) {
             default:
                 System.out.println("Command not supported");
@@ -120,8 +123,8 @@ public class CommandMenu {
                 break;
 
             case 5:
-             removeUser();
-                break;
+                 removeUser();
+                 break;
 
 
             case 6:
@@ -173,8 +176,6 @@ public class CommandMenu {
                 BorrowMgt.listBorrows();
                 BorrowMgt.returnBook("1");
                 BorrowMgt.listBorrows();
-                System.out.println(BorrowMgt.getUser("1"));
-                System.out.println(BorrowMgt.getUser("2"));
 
 
 
