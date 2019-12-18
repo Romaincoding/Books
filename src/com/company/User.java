@@ -76,15 +76,4 @@ public class User {
     public void setYearBirth(int yearBirth) {
         this.yearBirth = yearBirth;
     }
-
-
-
-
-        //- La commande doit créer en mémoire un nouvel utilisateur. Un utilisateur devra être considéré comme déjà existant si le nom ET le prénom d'un utilisateur correspondent parfaitement au nom ET prénom dans la commande. Dans ce cas un message d'erreur affiche que l'utilisateur existe déjà.
-//            - La commande doit vérifier que le jour de naissance est entre 1 et 31 (on ne vérifiera pas les dates comme le 29 février;) ), que le mois est entre 1 et 12.
-//            - La commande vérifiera également que les 3 derniers paramètres sont bien des valeurs numériques entières, sinon affichera un message d'erreur.
-//    }
-
-
-
 }

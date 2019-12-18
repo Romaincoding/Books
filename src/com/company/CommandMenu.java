@@ -32,13 +32,48 @@ public class CommandMenu {
         }
     }
 
+    // recup la ligne de l'utilisateur et la transformer en commande
+    static void getUserCommand() {
+        Scanner sc = new Scanner(System.in);
+        String entry = sc.nextLine();
+        String[] split = entry.split(",");
+        String firstSplit = split[0];
+        String secondSplit = split[1];
+        String thirdtSplit = split[2];
+        String fourthtSplit = split[3];
+        String fifthtSplit = split[4];
+        System.out.println(firstSplit);
+        System.out.println(secondSplit);
+        System.out.println(thirdtSplit);
+        System.out.println(fourthtSplit);
+        System.out.println(fifthtSplit);
+
+        switch (firstSplit ){
+
+        default:
+        System.out.println("Command not valid");
+        break;
+
+        case "addUser":
+            if(split.length < 5){
+                myPrint("Red", "Missing attributes");
+            } else{
+                System.out.println("J'arrive là?");
+            UserMgt.addUser(split[1], split[2], setToInt(split[3]), setToInt(split[4]), setToInt(split[5]));}
+        }
+  }
+
     static void addUser() {
        try{ System.out.println("Format to addUser : firstname, lastname, daybirth, monthbirth, yearofbirth:");
         Scanner sc = new Scanner(System.in);
         String entry = sc.nextLine();
         String [] split = entry.split(" ");
+        if(split.length < 5){
+            myPrint("Red", "Missing attributes");
+        }
        // String outputEntry = split[0] +" "+ split [1] + " " + split[2] + " " + split[3] + " " + split[4];
         UserMgt.addUser(split[0], split[1], setToInt(split[2]), setToInt(split[3]), setToInt(split[4]));
+
        }catch (Exception e){
            e.getStackTrace();
        }
@@ -92,6 +127,7 @@ public class CommandMenu {
     }
 
     static void removeUser(){
+
        UserMgt.removeUser("toto","beau");
     }
     static void removeBook(){
@@ -175,18 +211,19 @@ public class CommandMenu {
 //                restore();
                 break;
             case "test":
-                BookMgt.addBook("Le seigneur des anneaux","1",1937,"Terre du milieu");
-                BookMgt.addBook("Le seigneur des anus","2",1937,"Trou du milieu");
-                BookMgt.addBook("Le seigneur des anales","3",1937,"Trous des milieux");
-                UserMgt.addUser("toto", "beau", 2 ,7, 1982);
-                UserMgt.addUser("tata", "yoyo", 3 ,11, 1984);
-                UserMgt.addUser("titi", "grominet", 3 ,11, 1984);
-                BorrowMgt.addBorrow("toto", "beau","1");
-                BorrowMgt.addBorrow("tata", "yoyo","2");
-                BorrowMgt.addBorrow("titi", "grominet","2");
-                BorrowMgt.listBorrows();
-                BorrowMgt.returnBook("1");
-                BorrowMgt.listBorrows();
+                getUserCommand();
+//                BookMgt.addBook("Le seigneur des anneaux","1",1937,"Terre du milieu");
+//                BookMgt.addBook("Le seigneur des anus","2",1937,"Trou du milieu");
+//                BookMgt.addBook("Le seigneur des anales","3",1937,"Trous des milieux");
+//                UserMgt.addUser("toto", "beau", 2 ,7, 1982);
+//                UserMgt.addUser("tata", "yoyo", 3 ,11, 1984);
+//                UserMgt.addUser("titi", "grominet", 3 ,11, 1984);
+//                BorrowMgt.addBorrow("toto", "beau","1");
+//                BorrowMgt.addBorrow("tata", "yoyo","2");
+//                BorrowMgt.addBorrow("titi", "grominet","2");
+//                BorrowMgt.listBorrows();
+//                BorrowMgt.returnBook("1");
+//                BorrowMgt.listBorrows();
 
 
 
@@ -217,6 +254,10 @@ public class CommandMenu {
         myPrint("Blue", "*  15-restore                    *");
         myPrint("Blue", "**********************************");
 
+    }
+
+    static void addBook(){
+        System.out.println("à faire");
     }
 
     static void editBook() {
@@ -252,35 +293,54 @@ public class CommandMenu {
        try {
            System.out.println(message);
            Scanner sc = new Scanner(System.in);
-          int number =  Integer.parseInt(sc.nextLine());
-           if (number <= min || number >= max) {
+               int number = Integer.parseInt(sc.nextLine());
+               if (number <= min || number >= max) {
+                   System.out.println("Please enter an integer value");
+                   return -1;
+               }
+               return number;
+
+           } catch(Exception e){
+               System.out.println(e);
                System.out.println("Please enter an integer value");
                return -1;
            }
-           return number;
-       } catch (Exception e) {
-           System.out.println(e);
-           System.out.println("Please enter an integer value");
-           return -1;
-       }
-   }
+    }
 
 
     private static int getInt(String message){
-      try{  System.out.println(message);
-        Scanner sc = new Scanner(System.in);
-        int number = Integer.parseInt(sc.nextLine());
-        return number;
-      }catch (Exception e) {
+       if(message.equals("")) {
+           System.out.println("VIDE");
+       }
+           try {
+               System.out.println(message);
+               Scanner sc = new Scanner(System.in);
+               int number = Integer.parseInt(sc.nextLine());
+               return number;
+           } catch (Exception e) {
 
-          System.out.println(e);
-          return -1;
-      }
-    }
+               System.out.println(e);
+               return -1;
+           }
+       }
 
-    private static int setToInt(String entry){
-        int entryInt = Integer.parseInt(entry);
-        return entryInt;
+
+
+    private static int setToInt(String entry) {
+
+        if (entry.equals("")) {
+            return -1;
+        }
+        else{
+
+            try {
+                int entryInt = Integer.parseInt(entry);
+                return entryInt;
+            } catch (NumberFormatException f) {
+               // myPrint("Red", "Wait an integer's value and found " + entry);
+            }
+            return -1;
+        }
     }
 
     /**
