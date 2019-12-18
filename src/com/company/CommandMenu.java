@@ -38,28 +38,42 @@ public class CommandMenu {
         String entry = sc.nextLine();
         String[] split = entry.split(",");
         String firstSplit = split[0];
-        String secondSplit = split[1];
-        String thirdtSplit = split[2];
-        String fourthtSplit = split[3];
-        String fifthtSplit = split[4];
-        System.out.println(firstSplit);
-        System.out.println(secondSplit);
-        System.out.println(thirdtSplit);
-        System.out.println(fourthtSplit);
-        System.out.println(fifthtSplit);
+//        String secondSplit = split[1];
+//        String thirdtSplit = split[2];
+//        String fourthtSplit = split[3];
+//        String fifthtSplit = split[4];
+//        System.out.println(firstSplit);
+//        System.out.println(secondSplit);
+//        System.out.println(thirdtSplit);
+//        System.out.println(fourthtSplit);
+//        System.out.println(fifthtSplit);
 
-        switch (firstSplit ){
+        switch (firstSplit ) {
 
-        default:
-        System.out.println("Command not valid");
-        break;
+            default:
+                System.out.println("Command not valid");
+                break;
 
-        case "addUser":
-            if(split.length < 5){
-                myPrint("Red", "Missing attributes");
-            } else{
-                System.out.println("J'arrive là?");
-            UserMgt.addUser(split[1], split[2], setToInt(split[3]), setToInt(split[4]), setToInt(split[5]));}
+            case "addUser":
+                if (split.length < 5) {
+                    myPrint("Red", "Missing attributes");
+                } else {
+                    System.out.println("J'arrive là?");
+                    UserMgt.addUser(split[1], split[2], setToInt(split[3]), setToInt(split[4]), setToInt(split[5]));
+                }
+                break;
+
+
+            case "addBook":
+                if (split.length < 4) {
+                    myPrint("Red", "Missing attributes");
+                } else {
+                    System.out.println("J'arrive là?");
+                    BookMgt.addBook(split[1], split[2], setToInt(split[3]),split[4]);
+                }
+                break;
+
+
         }
   }
 
