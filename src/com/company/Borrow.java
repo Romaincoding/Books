@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Class which manage borrow
+ * Class borrow
  */
 public class Borrow {
 
@@ -24,14 +24,18 @@ public class Borrow {
 
     }
 
+    @Override
+    public String toString() {
+        return "Borrow{" +
+                "user=" + user +
+                ", book=" + book +
+                ", dateBegin='" + dateBegin + '\'' +
+                ", dateEnd='" + dateEnd + '\'' +
+                '}';
+    }
     public void setReturnDate(){
         this.dateEnd = sdf.format(new Date());
     }
-
-
-
-//
-//    private  String timestampStr = sdf.format(new Date());
 
 
     public User getUser() {
@@ -66,13 +70,4 @@ public class Borrow {
         this.dateEnd = dateEnd;
     }
 
-    @Override
-    public String toString() {
-        return "Borrow{" +
-                "user=" + user +
-                ", book=" + book +
-                ", dateBegin='" + dateBegin + '\'' +
-                ", dateEnd='" + dateEnd + '\'' +
-                '}';
-    }
 }

@@ -4,14 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class which manage the users
+ * Class which manages the users
  */
 public class UserMgt {
 
 
     public static final ArrayList<User> userList = new ArrayList<User>();
 
-
+    /**
+     * Function that add an user in a list if he did not exists before
+     * @param firstName first name of the user
+     * @param lastName last name of the user
+     * @param dayBirth day of birth of the user
+     * @param monthBirth month of birth of the user
+     * @param yearBirth year of birth of the user
+     */
     public static void addUser(String firstName, String lastName, int dayBirth, int monthBirth, int yearBirth){
         for(User user:userList) {
             if (user.getFirstName().equals(firstName) && user.getLastName().equals(lastName)) {
@@ -37,7 +44,6 @@ public class UserMgt {
         return null;
     }
 
-
     /**
      * Function that allows to delete a user
      * @param firstName firstname of the user
@@ -53,16 +59,10 @@ public class UserMgt {
         }
         System.out.println(" User not found");
     }
-//- cette commande recherche un utilisateur avec le meme nom ET prénom rentrés et va le supprimer de la liste.
-//- si l'utilisateur recherché n'existe pas, alors on affiche un message d'erreur comme quoi il est introuvable.
-//            - si l'utilisateur existe, il est supprimé de la liste en mémoire, et on affiche un message de réussite de l'effacement.
-//- si l'utilisateur est en cours d'emprunt de livre, alors l'effacement de cet utilisateur ne pourra pas se faire et un message d'erreur sera affiché
-
     /**
      * Function that diplays the list of all users
      * @return a list of users
      */
-
     public static ArrayList<User> getUserList() {
         return userList;
     }

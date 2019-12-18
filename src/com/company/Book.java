@@ -12,6 +12,13 @@ public class Book {
     private int dateOfParution;
     private String editorName;
 
+    /**
+     * Constructor method of Book
+     * @param title title of the book
+     * @param ref unique String reference for a book
+     * @param dateOfParution date of parution date of the book
+     * @param editorName name of the editor of the book
+     */
     public Book(String title, String ref, int dateOfParution, String editorName) {
         this.title = title;
         this.ref = ref;

@@ -15,10 +15,9 @@ public class App {
 //        System.out.println(test2);
         do {
             //CommandMenu.displayHelp();
-            System.out.println("Please enter a command");
-            String ch = CommandMenu.getUserChoice();
-            // System.out.println(ch);
-           programIsOn = CommandMenu.processCmd(ch);
+//            String message = FigletFont.convertOneLine("Hello les TPs !");
+//            System.out.println(message);
+            CommandMenu.getUserCommand();
 
         }
         while (programIsOn == true);

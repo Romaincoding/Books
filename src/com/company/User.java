@@ -3,7 +3,7 @@ package com.company;
 import java.util.List;
 
 /**
- * Class qui gère les utilisateurs
+ * Class of User
  */
 
 public class User {

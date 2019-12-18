@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Class qui gère l'emprunt
+ * Class which manages the borrows
  */
 
 public class BorrowMgt {
@@ -15,9 +15,7 @@ public class BorrowMgt {
     public static final ArrayList<Borrow> borrowList = new ArrayList<Borrow>();
     private BorrowLogger logger;
 
-
     BorrowMgt() {
-
 
     }
 
@@ -51,22 +49,10 @@ public class BorrowMgt {
        return null;
    }
 
-
-
-//
-//   static User getUser(String bookRef) {
-//       User b = borrowMap.get(bookRef);
-//        if (b == null) {
-//            System.out.println("Book not found for key=" + bookRef);
-//        }
-//        return b;
-//    }
-
-
     /**
      * Function that allows to signal the ends of a book's borrowing
-     * @param bookref unique String reference for a book
-     * @return the recap of the loan
+     * @param bookRef unique String reference for a book
+     * @return the recap of the borrow
      */
    static  void returnBook (String bookRef) {
         Book book = BookMgt.findBook(bookRef);
@@ -83,16 +69,9 @@ public class BorrowMgt {
          }
    }
 
-//- cette commande prend en paramètre la référence d'un livre
-//            - si cette référence n'existe pas, alors on affiche une erreur
-//            - si ce livre n'a pas été emprunté, on affiche une erreur
-//            - si ce livre est actuellement emprunté, alors on met a jour l'objet emprunt associé pour mettre la date du rendu (mettre une date aléatoire mais qui soit supérieure à la date d'emprunt)
-//            - afficher le récapitulatif de l'emprunt (utilisateur, ref livre, date d'emprunt, date de rendu)
-//
-
     /**
-     * Function that display the list of books that are borrowed
-     * @return a list of books that are borrows
+     * Function that display the list the borrows
+     * @return a list of borrows
      */
     public static void listBorrows() {
         for (Borrow borrow: borrowList){
