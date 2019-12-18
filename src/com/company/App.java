@@ -16,7 +16,7 @@ public class App {
         do {
             //CommandMenu.displayHelp();
             System.out.println("GO");
-            int ch = CommandMenu.getUserChoice();
+            String ch = CommandMenu.getUserChoice();
             // System.out.println(ch);
            programIsOn = CommandMenu.processCmd(ch);
 

@@ -5,6 +5,9 @@ import org.w3c.dom.ls.LSOutput;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Class which manage borrow
+ */
 public class Borrow {
 
     private User user;

@@ -3,6 +3,9 @@ package com.company;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class which manage the users
+ */
 public class UserMgt {
 
 

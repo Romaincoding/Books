@@ -33,19 +33,31 @@ public class CommandMenu {
     }
 
     static void addUser() {
-        try {
-            String firstName = getLine("What is your first name? :");
-            String lastName = getLine("What is your last name? :");
-            int dayBirth = getInt("What is your day of birth?:",1,31);
-            int monthBirth = getInt("What is your month of birth?:", 1, 12);
-            int yearBirth = getInt("What is your year of birth?:",1900,2021);
+       try{ System.out.println("Format to addUser : firstname, lastname, daybirth, monthbirth, yearofbirth:");
+        Scanner sc = new Scanner(System.in);
+        String entry = sc.nextLine();
+        String [] split = entry.split(" ");
+       // String outputEntry = split[0] +" "+ split [1] + " " + split[2] + " " + split[3] + " " + split[4];
+        UserMgt.addUser(split[0], split[1], setToInt(split[2]), setToInt(split[3]), setToInt(split[4]));
+       }catch (Exception e){
+           e.getStackTrace();
+       }
 
-            UserMgt.addUser(firstName, lastName, dayBirth, monthBirth, yearBirth);
+       }
 
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-    }
+//        try {
+//            String firstName = getLine("What is your first name? :");
+//            String lastName = getLine("What is your last name? :");
+//            int dayBirth = getInt("What is your day of birth?:",1,31);
+//            int monthBirth = getInt("What is your month of birth?:", 1, 12);
+//            int yearBirth = getInt("What is your year of birth?:",1900,2021);
+//
+//            UserMgt.addUser(firstName, lastName, dayBirth, monthBirth, yearBirth);
+//
+//        } catch (Exception e) {
+//            e.getStackTrace();
+//        }
+//    }
 
     static void editUser(){
         String firstName = getLine("What is your first name? :");
@@ -96,74 +108,73 @@ public class CommandMenu {
         BorrowMgt.listBorrows();
     }
 
-    static boolean processCmd(int choice) throws Exception {
+    static boolean processCmd( String choice) throws Exception {
         boolean programIsOn = true;
-      //  String entry = sc.nextLine
-        //        entry.split()
 
-                
+
+
         switch (choice) {
             default:
                 System.out.println("Command not supported");
                 break;
-            case 1:
+            case "help":
                 displayHelp();
                 break;
 
-            case 2:
+            case "quit":
                 programIsOn = false;
                 break;
 
-            case 3:
+            case "addUser":
                 addUser();
                 break;
 
-            case 4:
+            case "editUser":
                 editUser();
                 break;
 
-            case 5:
+            case "removeUser":
                  removeUser();
                  break;
 
 
-            case 6:
+            case "UsersList":
                 System.out.println( UserMgt.getUserList());
                 break;
 
-            case 7:
+            case "addBook":
                BookMgt.addBook("Le seigneur des anneaux","4356",1937,"Terre du milieu");
 
                 break;
-            case 8:
+            case "editBook":
 
                 editBook();
                 break;
 
-            case 9:
+            case "removeBook":
                 removeBook();
                 break;
 
-            case 10:
+            case "BooksList":
                 System.out.println(BookMgt.getBooksList());
                 break;
-            case 11:
+            case "addBorrow":
 
                 addBorrow();
                 break;
-            case 12:
+            case "endBorrow":
                   endBorrow();           //  System.out.println(Borrow.getBorrowMap());
                 break;
-            case 13:
+            case "listBorrows":
                listBorrows();
                 break;
-            case 14:
+            case "save":
 //                save();
                 break;
-            case 15:
+            case "restore":
 //                restore();
                 break;
-            case 20:
+            case "test":
                 BookMgt.addBook("Le seigneur des anneaux","1",1937,"Terre du milieu");
                 BookMgt.addBook("Le seigneur des anus","2",1937,"Trou du milieu");
                 BookMgt.addBook("Le seigneur des anales","3",1937,"Trous des milieux");
@@ -258,13 +269,18 @@ public class CommandMenu {
     private static int getInt(String message){
       try{  System.out.println(message);
         Scanner sc = new Scanner(System.in);
-        int number = sc.nextInt();
+        int number = Integer.parseInt(sc.nextLine());
         return number;
       }catch (Exception e) {
 
           System.out.println(e);
           return -1;
       }
+    }
+
+    private static int setToInt(String entry){
+        int entryInt = Integer.parseInt(entry);
+        return entryInt;
     }
 
     /**
@@ -283,8 +299,8 @@ public class CommandMenu {
     static void borrowBook(String firstName, String lastname, String ref) {
     }
 
-    public static int getUserChoice() {
-        return getInt("Enter your choice");
+    public static String getUserChoice() {
+        return getLine("Enter your choice");
     }
 //- cette commande prend en paramètre le prénom et le nom d'un utilisateur ainsi que la référence du livre à emprunter
 //            - si l'utilisateur n'existe pas on affiche une erreur.
