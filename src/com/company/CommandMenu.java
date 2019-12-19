@@ -50,15 +50,10 @@ public class CommandMenu {
 
             case "adduser":
                 addUser(entry);
-
                 break;
 
             case "addbook":
-                if (split.length < 4) {
-                    myPrint("Red", "Missing attributes");
-                } else {
-                    BookMgt.addBook(split[1], split[2], setToInt(split[3]), split[4]);
-                }
+                addBook(entry);
                 break;
 
             case "createborrow":
@@ -82,16 +77,11 @@ public class CommandMenu {
                 break;
 
             case "editbook":
-
-                if (split.length < 1) {
-                    myPrint("Red", "Missing attributes");
-                } else {
-                    editBook(split[1]);
-                }
+                editBook(entry);
                 break;
 
             case "removeuser":
-              removeUser();
+              removeUser(entry);
 
             case "removebook":
                 if (split.length < 1) {
@@ -258,12 +248,41 @@ public class CommandMenu {
 
     }
 
-    static void addBook(){
-        System.out.println("à faire");
-    }
+    static void addBook(String message) {
+        String[] split = message.split(" ");
 
-    static void editBook(String bookRef) {
-        // bookRef = getLine("What is the book reference? :");
+        if (split.length == 5) {
+            try{
+            String title = getString(split[1]);
+            String bookRef = (split[2]);
+            int dateOfParution = getInt(split[3], 1, 2019);
+            String editorName = getString(split[4]);
+            BookMgt.addBook(title,bookRef,dateOfParution,editorName);
+            }
+            catch (CliException e){
+                System.out.println(e.getMessage());
+            }
+            } else {
+            myPrint("Red", "Missing attributes");
+            }
+        }
+
+
+    static void editBook(String message) {
+        String [] split = message.split(" ");
+        String bookRef ="";
+
+        if (split.length == 2) {
+            try {
+                 bookRef = (split[1]);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                return;
+            }
+          } else {
+            myPrint("Red", "Missing attributes");
+        }
+        System.out.println("bookref=" + bookRef);
         Book book = BookMgt.findBook(bookRef);
         if (book != null) {
             String title = getLine("What is the book's title? :");
@@ -272,7 +291,8 @@ public class CommandMenu {
             }
 
                  bookRef = getLine("What is the book's reference? :");
-            if (bookRef.equals("") == false) {
+
+            if (bookRef.equals("") == false && BookMgt.getBooksList().contains(book.getRef()) == false) {
                 book.setRef(bookRef);
             }
 
