@@ -21,24 +21,30 @@ public class BorrowMgt {
 
    public static void createBorrow(String firstName, String lastName, String bookRef) {
        User user = UserMgt.findUser(firstName, lastName);
-       Book book = null;
+       Borrow borrow;
+       Book book;
        if (user != null) {
            book = BookMgt.findBook(bookRef);
            if (book != null) {
-               if (getBorrow(book) != null) {
+               borrow = getBorrow(book);
+               if (borrow != null && borrow.getDateEnd() == null) {
                    CommandMenu.myPrint("Red", "Book already borrowed");
                } else {
-                   borrowList.add(new Borrow(user,book));
-                   CommandMenu.myPrint("Green", firstName + " " + lastName + " has borrowed " + "Book " + bookRef);
+                   borrowList.add(borrow = new Borrow(user, book));
+
+                   CommandMenu.myPrint("Green", firstName + " " + lastName + " has borrowed " + "Book " + bookRef + " " +borrow.getDateBegin());
                }
-           }
-           else {
+           } else {
                CommandMenu.myPrint("Red", "Book does not exist");
+
            }
+
        } else {
            CommandMenu.myPrint("Red", "User does not exist"); //- si l'utilisateur n'existe pas on affiche une erreur.
        }
    }
+
+
 
    static Borrow getBorrow(Book book) {
        for (Borrow borrow : borrowList) {

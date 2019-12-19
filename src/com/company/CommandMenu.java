@@ -46,7 +46,7 @@ public class CommandMenu {
         switch (cmdName ) {
 
             default:
-                System.out.println("Command " + cmdName + " not valid");
+                myPrint("Red","Command " + cmdName + " not valid, Please enter a valid command or try help");
                 break;
 
             case "adduser":
