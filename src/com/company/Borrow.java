@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Class borrow
+ * Class of borrows
  */
 public class Borrow {
 

@@ -78,11 +78,7 @@ public class CommandMenu {
                 break;
 
             case "edituser":
-                if (split.length < 2) {
-                    myPrint("Red", "Missing attributes");
-                } else {
-                    editUser(split[1], split[2]);
-                }
+                    editUser(entry);
                 break;
 
             case "editbook":
@@ -95,12 +91,7 @@ public class CommandMenu {
                 break;
 
             case "removeuser":
-                if (split.length < 2) {
-                    myPrint("Red", "Missing attributes");
-                } else {
-                    UserMgt.removeUser(split[1], split[2]);
-                }
-                break;
+              removeUser();
 
             case "removebook":
                 if (split.length < 1) {
@@ -161,9 +152,21 @@ public class CommandMenu {
 //    }
 
 
-    static void editUser(String firstName,String lastName){
-//        String firstName = getLine("What is your first name? :");
-//        String lastName = getLine("What is your last name? :");
+    static void editUser(String message) {
+        String[] split = message.split(" ");
+        String firstName = "";
+        String lastName = "";
+        if (split.length == 3) {
+            try {
+               firstName = getString(split[1]);
+               lastName = getString(split[2]);
+            } catch (CliException e) {
+                System.out.println(e.getMessage());
+                return;
+            }
+        } else {
+            myPrint("Red", "Missing attributes");
+        }
         User user = UserMgt.findUser(firstName, lastName);
         if(user != null){
             firstName = getLine("What is your new first name? :");
@@ -196,9 +199,24 @@ public class CommandMenu {
         }
     }
 
-    static void removeUser(){
+    static void removeUser(String message){
+        String[] split = message.split(" ");
+        String firstName = "";
+        String lastName = "";
+        if (split.length == 3) {
+            try {
+                firstName = getString(split[1]);
+                lastName = getString(split[2]);
 
-        UserMgt.removeUser("toto","beau");
+            } catch (CliException e) {
+                System.out.println(e.getMessage());
+                return;
+            }
+        } else {
+            myPrint("Red", "Missing attributes");
+        }
+        UserMgt.removeUser(firstName,lastName);
+
     }
     static void removeBook(){
         BookMgt.removeBook("3");
@@ -282,7 +300,7 @@ public class CommandMenu {
               int yearBirth = getInt(split[5], 1900, 2019);
               UserMgt.addUser(firstName, lastName, dayBirth, monthBirth, yearBirth);
           } catch(CliException e){
-              e.printStackTrace();
+              System.out.println(e.getMessage());
           }
        } else {
            myPrint("Red", "Missing attributes");
@@ -295,7 +313,16 @@ public class CommandMenu {
         if (s.equals("") == true) {
             throw new CliException("Error,String is empty ");
         }
+        if(isAlpha(s) == false) {
+            throw new CliException("Error,not a String");
+        }
         return s;
+        }
+
+
+
+    public static boolean isAlpha(String name) {
+        return name.matches("[a-zA-Z]+");
     }
 
     /**
