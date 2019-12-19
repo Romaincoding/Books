@@ -1,10 +1,8 @@
 package com.company;
 
-import jdk.swing.interop.SwingInterOpUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+
 
 /**
  * Class which manages the borrows
@@ -19,6 +17,12 @@ public class BorrowMgt {
 
     }
 
+    /**
+     * Function that allows to create a borrow
+     * @param firstName of the user
+     * @param lastName of the suer
+     * @param bookRef unique String reference for a book
+     */
    public static void createBorrow(String firstName, String lastName, String bookRef) {
        User user = UserMgt.findUser(firstName, lastName);
        Borrow borrow;
@@ -45,7 +49,11 @@ public class BorrowMgt {
    }
 
 
-
+    /**
+     * Function that allows to get a borrow from a book
+     * @param book is an Object Book
+     * @return an Oject Borrow
+     */
    static Borrow getBorrow(Book book) {
        for (Borrow borrow : borrowList) {
            if (borrow.getBook().equals(book)) {
@@ -55,6 +63,11 @@ public class BorrowMgt {
        return null;
    }
 
+    /**
+     * Function that allows to get a borrow from a user
+     * @param user is an Object Book
+     * @return an Oject Borrow
+     */
     static Borrow getBorrow(User user) {
         for (Borrow borrow : borrowList) {
             if (borrow.getUser().equals(user)) {
@@ -63,10 +76,10 @@ public class BorrowMgt {
         }
         return null;
     }
+
     /**
      * Function that allows to signal the ends of a book's borrowing
      * @param bookRef unique String reference for a book
-     * @return the recap of the borrow
      */
   public static void returnBook (String bookRef) {
         Book book = BookMgt.findBook(bookRef);

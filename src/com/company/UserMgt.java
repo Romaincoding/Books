@@ -1,7 +1,6 @@
 package com.company;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Class which manages the users
@@ -26,19 +25,19 @@ public class UserMgt {
                 return;
             }
         }
-           User user = new User(firstName, lastName, dayBirth, monthBirth, yearBirth);
-            userList.add(user);
-            return;
-        }
+        User user = new User(firstName, lastName, dayBirth, monthBirth, yearBirth);
+        userList.add(user);
+        return;
+    }
     /**
-     * Function that allows to update informations of a user
+     * Function that allows to update informations of an existing user
      * @param firstName firstname of the user
      * @param lastName lastname of the user
      */
     public static User findUser( String firstName,  String lastName) {
         for(User user:userList) {
             if(user.getFirstName().equals(firstName)  && user.getLastName().equals(lastName)) {
-              return user;
+                return user;
             }
         }
         return null;
@@ -52,7 +51,7 @@ public class UserMgt {
     static void removeUser(String firstName, String lastName) {
         for(User user:userList) {
             if(user.getFirstName().equals(firstName)  && user.getLastName().equals(lastName)) {
-               userList.remove(user);
+                userList.remove(user);
                 CommandMenu.myPrint("Blue","Delete ok");
                 return;
             }

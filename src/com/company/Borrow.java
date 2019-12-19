@@ -1,6 +1,5 @@
 package com.company;
 
-import org.w3c.dom.ls.LSOutput;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,6 +15,11 @@ public class Borrow {
     private String dateEnd;
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+    /**
+     * Method constructor of Borrow
+     * @param user is an Object User
+     * @param book is an Objet Book
+     */
     public Borrow(User user, Book book) {
         this.user = user;
         this.book = book;

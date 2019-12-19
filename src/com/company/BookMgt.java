@@ -1,7 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
-import java.util.List;
+
 /**
  * Class which manages the books
  */
@@ -57,12 +57,12 @@ public class BookMgt {
             }
         }
     }
-            /**
-             * Function that allows to display the list of all the books
-             * @return list of all the books
-             */
-            public static ArrayList<Book> getBooksList () {
-                return booksList;
-            }
+    /**
+     * Function that allows to display the list of all the books
+     * @return a list of all the books
+     */
+    public static ArrayList<Book> getBooksList () {
+        return booksList;
+    }
 }
 

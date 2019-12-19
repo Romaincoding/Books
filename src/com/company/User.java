@@ -1,6 +1,5 @@
 package com.company;
 
-import java.util.List;
 
 /**
  * Class that represents a user
@@ -15,9 +14,14 @@ public class User {
     private int yearBirth;
 
 
-
-
-
+    /**
+     * Method constructor of User
+     * @param firstName first name of the user
+     * @param lastName last name of the user
+     * @param dayBirth day of birth of the user
+     * @param monthBirth month of birth of the user
+     * @param yearBirth year of birth of the user
+     */
     public User(String firstName, String lastName, int dayBirth, int monthBirth, int yearBirth) {
         this.firstName = firstName;
         this.lastName = lastName;

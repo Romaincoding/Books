@@ -1,18 +1,20 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 import java.util.Scanner;
 
 /**
- * Class qui gère les commandes
+ * Class which manageS the CLI
  */
 
 public class CommandMenu {
 
-
     Boolean programIsOn;
 
+    /**
+     * Function that allows to add color to a String
+     * @param color to use
+     * @param message to color
+     */
     static void myPrint(String color, String message) {
         switch (color) {
             case "Blue":
@@ -32,8 +34,9 @@ public class CommandMenu {
         }
     }
 
-    /**Function that takes input of the user and process it
-     *
+    /**
+     * Function that takes input of the user and process it
+     * @return a boolean
      */
     static boolean getUserCommand() {
         myPrint("Yellow", "> Enter a command");
@@ -70,7 +73,7 @@ public class CommandMenu {
                 break;
 
             case "edituser":
-                    editUser(entry);
+                editUser(entry);
                 break;
 
             case "editbook":
@@ -78,23 +81,23 @@ public class CommandMenu {
                 break;
 
             case "removeuser":
-              removeUser(entry);
-              break;
+                removeUser(entry);
+                break;
 
             case "removebook":
-               removeBook(entry);
+                removeBook(entry);
                 break;
 
             case "endborrow":
-               endBorrow(entry);
+                endBorrow(entry);
                 break;
 
             case "listusers":
-                System.out.println( UserMgt.getUserList());
+                listUsers();
                 break;
 
             case "listbooks":
-                System.out.println(BookMgt.getBooksList());
+                listBooks();
                 break;
 
             case "listborrow":
@@ -102,7 +105,7 @@ public class CommandMenu {
                 break;
 
             case "save":
-               save();
+                save();
                 break;
 
             case "restore":
@@ -113,24 +116,67 @@ public class CommandMenu {
         return programIsOn;
     }
 
-    private static void restore() {
-        System.out.println("To do");
+    /**
+     * Function that displays command's format to apply
+     */
+    static void displayHelp() {
+
+        System.out.println("adduser <firstName> <lastName> <dayOfBirth> <monthOfBirth> <yearOfBirth>");
+        System.out.println("edituser <firstName> <lastName>");
+        System.out.println("removeuser <firstName> <lastName>");
+        System.out.println("listusers\n");
+
+        System.out.println("addbook <title> <bookRef> <dateOfParution> <editorName>");
+        System.out.println("editbook <bookRef>");
+        System.out.println("removebook <bookRef");
+        System.out.println("listbooks\n");
+
+        System.out.println("createborrow <firstName> <lastName> <bookRef>");
+        System.out.println("endborrow <bookRef>");
+        System.out.println("listborrow\n");
+
+        System.out.println("save");
+        System.out.println("restore");
+        System.out.println("help");
+        System.out.println("exit");
+
     }
 
-    private static void save() {
-        System.out.println("To do");
-    }
+    /**
+     * Function that add an user in a list if he did not exist before
+     * @param message
+     */
+    private static void addUser(String message){
+        String [] split = message.split(" ");
 
+        if (split.length == 6 ) {
+            try {
+                String firstName = getString(split[1]);
+                String lastName = getString(split[2]);
+                int dayBirth = getInt(split[3], 1, 31);
+                int monthBirth = getInt(split[4], 1, 12);
+                int yearBirth = getInt(split[5], 1900, 2019);
+                UserMgt.addUser(firstName, lastName, dayBirth, monthBirth, yearBirth);
+            } catch(CliException e){
+                System.out.println(e.getMessage());
+            }
+        } else {
+            myPrint("Red", "Missing attributes");
+        }
+  }
 
-
+    /**
+     * Function that allows to update informations of an existing user
+     * @param message
+     */
     static void editUser(String message) {
         String[] split = message.split(" ");
         String firstName = "";
         String lastName = "";
         if (split.length == 3) {
             try {
-               firstName = getString(split[1]);
-               lastName = getString(split[2]);
+                firstName = getString(split[1]);
+                lastName = getString(split[2]);
             } catch (CliException e) {
                 System.out.println(e.getMessage());
                 return;
@@ -140,10 +186,10 @@ public class CommandMenu {
         }
         User user = UserMgt.findUser(firstName, lastName);
         if(user != null) {
-           Borrow borrow = BorrowMgt.getBorrow(user);
-           if(borrow != null){
-               myPrint("Red","Edit not possible, User is present in borrow's list");
-               return;
+            Borrow borrow = BorrowMgt.getBorrow(user);
+            if(borrow != null){
+                myPrint("Red","Edit not possible, User is present in borrow's list");
+                return;
             }
             firstName = getLine("What is your new first name? :");
             if(firstName.equals("") == false){
@@ -194,22 +240,15 @@ public class CommandMenu {
         UserMgt.removeUser(firstName,lastName);
     }
 
-    static void removeBook(String message)  {
-        String[] split = message.split(" ");
-        String bookRef = "";
-        if (split.length == 2) {
-            try {
-                bookRef= (split[1]);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                return;
-            }
-        } else {
-            myPrint("Red", "Missing attributes");
-        }
-        BookMgt.removeBook(bookRef);
+    static void listUsers(){
+        System.out.println(UserMgt.getUserList());
     }
+// methods for borrow
 
+    /**
+     *
+     * @param message
+     */
     static void addBorrow(String message){
         String[] split = message.split(" ");
         if (split.length == 4) {
@@ -227,12 +266,16 @@ public class CommandMenu {
         }
     }
 
+    /**
+     *
+     * @param message
+     */
     static void endBorrow(String message){
         String[] split = message.split(" ");
         String bookRef = "";
         if (split.length == 2) {
             try{
-              bookRef = (split[1]);
+                bookRef = (split[1]);
             }
             catch (Exception e){
                 System.out.println(e.getMessage());
@@ -244,69 +287,54 @@ public class CommandMenu {
         BorrowMgt.returnBook(bookRef);
     }
 
-
+    /**
+     *
+     */
     static void listBorrows(){
         BorrowMgt.listBorrows();
     }
 
+// methods for books
+
     /**
-     * Function that displays the menu
+     *
+     * @param message
      */
-    static void displayHelp() {
-
-        System.out.println("adduser <firstName> <lastName> <dayOfBirth> <monthOfBirth> <yearOfBirth>");
-        System.out.println("edituser <firstName> <lastName>");
-        System.out.println("removeuser <firstName> <lastName>");
-        System.out.println("listusers\n");
-
-        System.out.println("addbook <title> <bookRef> <dateOfParution> <editorName>");
-        System.out.println("editbook <bookRef>");
-        System.out.println("removebook <bookRef");
-        System.out.println("listbooks\n");
-
-        System.out.println("createborrow <firstName> <lastName> <bookRef>");
-        System.out.println("endborrow <bookRef>");
-        System.out.println("listborrow\n");
-
-        System.out.println("save");
-        System.out.println("restore");
-        System.out.println("help");
-        System.out.println("exit");
-
-    }
-
     static void addBook(String message) {
         String[] split = message.split(" ");
 
         if (split.length == 5) {
             try{
-            String title = getString(split[1]);
-            String bookRef = (split[2]);
-            int dateOfParution = getInt(split[3], 1, 2019);
-            String editorName = getString(split[4]);
-            BookMgt.addBook(title,bookRef,dateOfParution,editorName);
+                String title = getString(split[1]);
+                String bookRef = (split[2]);
+                int dateOfParution = getInt(split[3], 1, 2019);
+                String editorName = getString(split[4]);
+                BookMgt.addBook(title,bookRef,dateOfParution,editorName);
             }
             catch (CliException e){
                 System.out.println(e.getMessage());
             }
-            } else {
+        } else {
             myPrint("Red", "Missing attributes");
-            }
         }
+    }
 
-
+    /**
+     *
+     * @param message
+     */
     static void editBook(String message) {
         String [] split = message.split(" ");
         String bookRef ="";
 
         if (split.length == 2) {
             try {
-                 bookRef = (split[1]);
+                bookRef = (split[1]);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 return;
             }
-          } else {
+        } else {
             myPrint("Red", "Missing attributes");
         }
         Book book = BookMgt.findBook(bookRef);
@@ -321,7 +349,7 @@ public class CommandMenu {
                 book.setTitle(title);
             }
 
-                 bookRef = getLine("What is the book's reference? :");
+            bookRef = getLine("What is the book's reference? :");
 
             if (bookRef.equals("") == false && BookMgt.getBooksList().contains(book.getRef()) == false) {
                 book.setRef(bookRef);
@@ -339,27 +367,39 @@ public class CommandMenu {
         }
     }
 
-   private static void addUser(String message){
-        String [] split = message.split(" ");
+    /**
+     *
+     * @param message
+     */
+    static void removeBook(String message)  {
+        String[] split = message.split(" ");
+        String bookRef = "";
+        if (split.length == 2) {
+            try {
+                bookRef= (split[1]);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                return;
+            }
+        } else {
+            myPrint("Red", "Missing attributes");
+        }
+        BookMgt.removeBook(bookRef);
+    }
 
-       if (split.length == 6 ) {
-          try {
-              String firstName = getString(split[1]);
-              String lastName = getString(split[2]);
-              int dayBirth = getInt(split[3], 1, 31);
-              int monthBirth = getInt(split[4], 1, 12);
-              int yearBirth = getInt(split[5], 1900, 2019);
-              UserMgt.addUser(firstName, lastName, dayBirth, monthBirth, yearBirth);
-          } catch(CliException e){
-              System.out.println(e.getMessage());
-          }
-       } else {
-           myPrint("Red", "Missing attributes");
+    static void listBooks(){
+        System.out.println(BookMgt.getBooksList());
+    }
 
-       }
 
-   }
+// tools
 
+    /**
+     * Function that check a String
+     * @param s is the String to check
+     * @return a String checked
+     * @throws CliException
+     */
     private static String getString(String s) throws CliException{
         if (s.equals("") == true) {
             throw new CliException("Error,String is empty ");
@@ -368,18 +408,22 @@ public class CommandMenu {
             throw new CliException("Error,not a String");
         }
         return s;
-        }
+    }
 
 
-
+    /**
+     * Function that allows to check if numbers are presents in a String
+     * @param name is the String to check
+     * @return a boolean
+     */
     public static boolean isAlpha(String name) {
         return name.matches("[a-zA-Z]+");
     }
 
     /**
      * Function that reads integer input
-     * @param message to display
-     * @return int
+     * @param message String that is process
+     * @return int value
      */
     private static int getInt(String message,int min, int max) {
         if(message.equals("") == true){
@@ -401,40 +445,6 @@ public class CommandMenu {
         }
     }
 
-
-//    private static int getInt(String message){
-//        if(message.equals("")) {
-//            System.out.println("VIDE");
-//        }
-//        try {
-//            System.out.println(message);
-//            Scanner sc = new Scanner(System.in);
-//            int number = Integer.parseInt(sc.nextLine());
-//            return number;
-//        } catch (Exception e) {
-//
-//            System.out.println(e);
-//            return -1;
-//        }
-//    }
-
-//    private static int setToInt(String entry) {
-//
-//        if (entry.equals("")) {
-//            return -1;
-//        }
-//        else{
-//
-//            try {
-//                int entryInt = Integer.parseInt(entry);
-//                return entryInt;
-//            } catch (NumberFormatException f) {
-//                // myPrint("Red", "Wait an integer's value and found " + entry);
-//            }
-//            return -1;
-//        }
-//    }
-
     /**
      * Function that reads string input
      * @param message to display
@@ -447,30 +457,20 @@ public class CommandMenu {
         return string;
 
     }
-
-    static void borrowBook(String firstName, String lastname, String ref) {
+// save and restore
+    /**
+     * Function that save all the informations stored
+     */
+    private static void save() {
+        System.out.println("To do");
     }
 
-    public static String getUserChoice() {
-        return getLine("Enter your choice");
+    /**
+     * Function that restore all the informations of the last save
+     * */
+    private static void restore() {
+        System.out.println("To do");
     }
 
-/**
- * Function that save all the informations stored
- */
-//    static void save() {
-//- cette commande va sauvegarder toutes vos données liés aux utilisateurs, livres et emprunts sur le disque dur dans des fichiers.
-//- vous êtes libres de sauvegarder un seul fichier qui contient toutes les données ou bien un fichier par utilisateur, un fichier par livre, un fichier par emprunt, ou bien toute combinaison intermédiaire.
-//- le format des données à l'intérieur des fichiers peut etre du texte pur ou tout autre format qui vous semble plus pratique à manipuler.
-//            - vous aurez un bonus sur l'évaluation si vous sauvegardez dans vos fichiers les objets RAM sérialisés (cf. sérialisation et désérialisation des objets Java)
-//}
-
-/**
- * Function that restore all the informations of the last save
- //     */
-//     static void restore(){
-//- cette commande va détecter la présence des fichiers sauvegardés précédemment (si ils existent) et va les ouvrir en lecture et récupérer les informations contenues dedans pour créer de nouveaux objets en mémoire (utilisateur, livre, emprunt).
-//        }
-//    }
 }
 
