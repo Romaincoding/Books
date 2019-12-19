@@ -1,11 +1,13 @@
 package com.company;
 
 
+import java.io.Serializable;
+
 /**
  * Class that represents a user
  */
 
-public class User {
+public class User implements Serializable {
 
     private String firstName;
     private String lastName;

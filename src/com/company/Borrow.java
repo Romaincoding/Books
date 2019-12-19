@@ -1,13 +1,14 @@
 package com.company;
 
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
  * Class of borrows
  */
-public class Borrow {
+public class Borrow implements Serializable {
 
     private User user;
     private Book book;

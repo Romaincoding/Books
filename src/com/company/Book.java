@@ -1,10 +1,12 @@
 package com.company;
 
+import java.io.Serializable;
+
 /**
  * Class qui gère les livres
  */
 
-public class Book {
+public class Book implements Serializable {
 
 
     private String title;

@@ -7,6 +7,7 @@ import java.util.ArrayList;
  */
 public class BookMgt {
 
+
     private static ArrayList<Book> booksList = new ArrayList<Book>();
 
     /**
@@ -64,5 +65,10 @@ public class BookMgt {
     public static ArrayList<Book> getBooksList () {
         return booksList;
     }
+
+    public static void setBooksList(ArrayList<Book> booksList) {
+        BookMgt.booksList = booksList;
+    }
+
 }
 

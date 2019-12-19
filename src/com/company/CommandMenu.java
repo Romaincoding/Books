@@ -1,5 +1,7 @@
 package com.company;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -38,13 +40,20 @@ public class CommandMenu {
      * Function that takes input of the user and process it
      * @return a boolean
      */
-    static boolean getUserCommand() {
+    static boolean getUserCommand() throws IOException, ClassNotFoundException {
         myPrint("Yellow", "> Enter a command");
         Boolean programIsOn = true;
+        String cmdName = "";
         Scanner sc = new Scanner(System.in);
         String entry = sc.nextLine();
         String[] split = entry.split(" ");
-        String cmdName = split[0];
+        if (split.length > 0) {
+            cmdName = split[0];
+        } else {
+            return programIsOn;
+        }
+
+
 
         switch (cmdName ) {
 
@@ -144,7 +153,7 @@ public class CommandMenu {
 
     /**
      * Function that add an user in a list if he did not exist before
-     * @param message
+     * @param message String
      */
     private static void addUser(String message){
         String [] split = message.split(" ");
@@ -167,7 +176,7 @@ public class CommandMenu {
 
     /**
      * Function that allows to update informations of an existing user
-     * @param message
+     * @param message String
      */
     static void editUser(String message) {
         String[] split = message.split(" ");
@@ -184,40 +193,45 @@ public class CommandMenu {
         } else {
             myPrint("Red", "Missing attributes");
         }
-        User user = UserMgt.findUser(firstName, lastName);
-        if(user != null) {
-            Borrow borrow = BorrowMgt.getBorrow(user);
-            if(borrow != null){
-                myPrint("Red","Edit not possible, User is present in borrow's list");
-                return;
-            }
-            firstName = getLine("What is your new first name? :");
-            if(firstName.equals("") == false){
-                user.setFirstName(firstName);
-            }
 
-            lastName = getLine("What is your new last name? :");
-            if(lastName.equals("") == false){
-                user.setLastName(lastName);
+        try {
+            User user = UserMgt.findUser(firstName, lastName);
+            if (user != null) {
+                Borrow borrow = BorrowMgt.getBorrow(user);
+                if (borrow != null) {
+                    myPrint("Red", "Edit not possible, User is present in borrow's list");
+                    return;
+                }
+                firstName = getLine("What is your new first name? :");
+                if (firstName.equals("") == false) {
+                    user.setFirstName(firstName);
+                }
+
+                lastName = getLine("What is your new last name? :");
+                if (lastName.equals("") == false) {
+                    user.setLastName(lastName);
+                }
+                System.out.println("What is your new day of birth?");
+                Scanner sc = new Scanner(System.in);
+                int dayBirth = getInt(sc.nextLine(), 1, 31);
+                if (dayBirth != -1) {
+                    user.setDayBirth(dayBirth);
+                }
+                System.out.println("What is your new month of birth?");
+                int monthBirth = getInt(sc.nextLine(), 1, 12);
+                if (monthBirth != -1) {
+                    user.setMonthBirth(monthBirth);
+                }
+                System.out.println("What is your new Year of birth?");
+                int yearBirth = getInt(sc.nextLine(), 1900, 2020);
+                if (yearBirth != -1) {
+                    user.setYearBirth(yearBirth);
+                }
+            } else {
+                System.out.println("User does not exist!");
             }
-            System.out.println("What is your new day of birth?");
-            Scanner sc = new Scanner(System.in);
-            int dayBirth = getInt(sc.nextLine(),1,31);
-            if(dayBirth != -1){
-                user.setDayBirth(dayBirth);
-            }
-            System.out.println("What is your new month of birth?");
-            int monthBirth = getInt(sc.nextLine(),1,12);
-            if(monthBirth != -1){
-                user.setMonthBirth(monthBirth);
-            }
-            System.out.println("What is your new Year of birth?");
-            int yearBirth = getInt(sc.nextLine(),1900,2020);
-            if(yearBirth != -1){
-                user.setYearBirth(yearBirth);
-            }
-        }else{
-            System.out.println("User does not exist!");
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
     }
 
@@ -310,9 +324,10 @@ public class CommandMenu {
                 int dateOfParution = getInt(split[3], 1, 2019);
                 String editorName = getString(split[4]);
                 BookMgt.addBook(title,bookRef,dateOfParution,editorName);
+
             }
             catch (CliException e){
-                System.out.println(e.getMessage());
+
             }
         } else {
             myPrint("Red", "Missing attributes");
@@ -337,34 +352,37 @@ public class CommandMenu {
         } else {
             myPrint("Red", "Missing attributes");
         }
-        Book book = BookMgt.findBook(bookRef);
-        if (book != null) {
-            Borrow borrow = BorrowMgt.getBorrow(book);
-            if(borrow != null) {
-                myPrint("Red","Edit not possible, Book is stored in borrow's list");
-                return;
-            }
-            String title = getLine("What is the book's title? :");
-            if (bookRef.equals("") == false) {
-                book.setTitle(title);
-            }
+       try {
+           Book book = BookMgt.findBook(bookRef);
+           if (book != null) {
+               Borrow borrow = BorrowMgt.getBorrow(book);
+               if (borrow != null) {
+                   myPrint("Red", "Edit not possible, Book is stored in borrow's list");
+                   return;
+               }
+               String title = getLine("What is the book's title? :");
+               if (bookRef.equals("") == false) {
+                   book.setTitle(title);
+               }
 
-            bookRef = getLine("What is the book's reference? :");
+               bookRef = getLine("What is the book's reference? :");
 
-            if (bookRef.equals("") == false && BookMgt.getBooksList().contains(book.getRef()) == false) {
-                book.setRef(bookRef);
-            }
+               if (bookRef.equals("") == false && BookMgt.getBooksList().contains(book.getRef()) == false) {
+                   book.setRef(bookRef);
+               }
 
-            String dateOfParution = getLine("What's the date of parution?");
-            if (dateOfParution.equals("") == false) {
-                book.setDateOfParution(getInt(dateOfParution,0,2019));
-            }
-            String editorName= getLine("What's the name of editor?");
-            if (editorName.equals("") == false) {
-                book.setEditorName(editorName);
-            }
-
-        }
+               String dateOfParution = getLine("What's the date of parution?");
+               if (dateOfParution.equals("") == false) {
+                   book.setDateOfParution(getInt(dateOfParution, 0, 2019));
+               }
+               String editorName = getLine("What's the name of editor?");
+               if (editorName.equals("") == false) {
+                   book.setEditorName(editorName);
+               }
+           }
+       }catch (Exception e){
+           System.out.println(e.getMessage());
+       }
     }
 
     /**
@@ -425,24 +443,22 @@ public class CommandMenu {
      * @param message String that is process
      * @return int value
      */
-    private static int getInt(String message,int min, int max) {
+    private static int getInt(String message,int min, int max) throws CliException {
         if(message.equals("") == true){
             System.out.println("Found an empty field!");
             return -1;
         }
-        try {
-            int number = Integer.parseInt(message);
-            if (number < min || number > max) {
-                System.out.println("Please enter an integer value " + number);
-                return -1;
-            }
-            return number;
 
-        } catch(Exception e){
-            System.out.println(e);
-            System.out.println("Please enter an integer value");
-            return -1;
+        int number = Integer.parseInt(message);
+        if (number > max) {
+            myPrint("Blue","Please be serious " + number + "?" + " are you from the future?");
+            throw new CliException("Error wrong entry ");
         }
+        if (number < min){
+            myPrint("Red",number + " Very old, you have to move with the times!");
+            throw new CliException("Error wrong entry ");
+        }
+        return number;
     }
 
     /**
@@ -461,16 +477,30 @@ public class CommandMenu {
     /**
      * Function that save all the informations stored
      */
-    private static void save() {
-        System.out.println("To do");
+    private static void save(){
+        ArrayList<Object> readBookList = null;
+        try {
+            BorrowLogger.serializeBook(BookMgt.getBooksList());
+
+            System.out.println("la" + readBookList.get(0));
+
+          //  BorrowLogger.logToGson(BorrowMgt.getBorrowList(),"borrows.Json");
+           // BorrowLogger.logToGson(BookMgt.getBooksList(),"books.Json");
+           // BorrowLogger.logToGson(UserMgt.getUserList(),"users.Json");
+        } catch (Exception E) {
+
+        }
     }
 
     /**
      * Function that restore all the informations of the last save
      * */
-    private static void restore() {
-        System.out.println("To do");
-    }
+    private static void restore() throws IOException, ClassNotFoundException {
+     try{
+         BookMgt.setBooksList(BorrowLogger.deserializeBook("book.test"));
+     } catch (Exception e){
 
+     }
+    }
 }
 
