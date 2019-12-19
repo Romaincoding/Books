@@ -122,23 +122,6 @@ public class CommandMenu {
     }
 
 
-//    static void addUser() {
-//        try{ System.out.println("Format to addUser : firstname, lastname, daybirth, monthbirth, yearofbirth:");
-//            Scanner sc = new Scanner(System.in);
-//            String entry = sc.nextLine();
-//            String [] split = entry.split(" ");
-//            if(split.length < 5){
-//                myPrint("Red", "Missing attributes");
-//            }
-//            // String outputEntry = split[0] +" "+ split [1] + " " + split[2] + " " + split[3] + " " + split[4];
-//            UserMgt.addUser(split[0], split[1], setToInt(split[2]), setToInt(split[3]), setToInt(split[4]));
-//
-//        }catch (Exception e){
-//            e.getStackTrace();
-//        }
-//
-//    }
-
 
     static void editUser(String message) {
         String[] split = message.split(" ");
@@ -156,7 +139,12 @@ public class CommandMenu {
             myPrint("Red", "Missing attributes");
         }
         User user = UserMgt.findUser(firstName, lastName);
-        if(user != null){
+        if(user != null) {
+           Borrow borrow = BorrowMgt.getBorrow(user);
+           if(borrow != null){
+               myPrint("Red","Edit not possible, User is present in borrow's list");
+               return;
+            }
             firstName = getLine("What is your new first name? :");
             if(firstName.equals("") == false){
                 user.setFirstName(firstName);
@@ -321,9 +309,13 @@ public class CommandMenu {
           } else {
             myPrint("Red", "Missing attributes");
         }
-        System.out.println("bookref=" + bookRef);
         Book book = BookMgt.findBook(bookRef);
         if (book != null) {
+            Borrow borrow = BorrowMgt.getBorrow(book);
+            if(borrow != null) {
+                myPrint("Red","Edit not possible, Book is stored in borrow's list");
+                return;
+            }
             String title = getLine("What is the book's title? :");
             if (bookRef.equals("") == false) {
                 book.setTitle(title);

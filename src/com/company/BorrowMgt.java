@@ -55,6 +55,14 @@ public class BorrowMgt {
        return null;
    }
 
+    static Borrow getBorrow(User user) {
+        for (Borrow borrow : borrowList) {
+            if (borrow.getUser().equals(user)) {
+                return borrow;
+            }
+        }
+        return null;
+    }
     /**
      * Function that allows to signal the ends of a book's borrowing
      * @param bookRef unique String reference for a book
@@ -83,5 +91,8 @@ public class BorrowMgt {
         for (Borrow borrow: borrowList){
             System.out.println(borrow.toString());
         }
+    }
+    public static ArrayList<Borrow> getBorrowList() {
+        return borrowList;
     }
 }
