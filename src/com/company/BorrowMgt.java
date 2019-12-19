@@ -19,7 +19,7 @@ public class BorrowMgt {
 
     }
 
-   public static void addBorrow(String firstName, String lastName, String bookRef) {
+   public static void createBorrow(String firstName, String lastName, String bookRef) {
        User user = UserMgt.findUser(firstName, lastName);
        Book book = null;
        if (user != null) {
@@ -54,7 +54,7 @@ public class BorrowMgt {
      * @param bookRef unique String reference for a book
      * @return the recap of the borrow
      */
-   static  void returnBook (String bookRef) {
+  public static void returnBook (String bookRef) {
         Book book = BookMgt.findBook(bookRef);
          if(book != null){
              Borrow borrow = getBorrow(book);

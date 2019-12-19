@@ -58,11 +58,7 @@ public class CommandMenu {
                 break;
 
             case "createborrow":
-                if (split.length < 3) {
-                    myPrint("Red", "Missing attributes");
-                } else {
-                    BorrowMgt.addBorrow(split[1], split[2], split[3]);
-                }
+                addBorrow(entry);
                 break;
 
             case "help":
@@ -87,6 +83,10 @@ public class CommandMenu {
 
             case "removebook":
                removeBook(entry);
+                break;
+
+            case "endborrow":
+               endBorrow(entry);
                 break;
 
             case "listusers":
@@ -222,12 +222,41 @@ public class CommandMenu {
         BookMgt.removeBook(bookRef);
     }
 
-    static void addBorrow(){
-        BorrowMgt.addBorrow("Michel","Polna","2");
+    static void addBorrow(String message){
+        String[] split = message.split(" ");
+        if (split.length == 4) {
+            try{
+                String firstName = getString(split[1]);
+                String lastName = getString(split[2]);
+                String bookRef = (split[3]);
+                BorrowMgt.createBorrow(firstName,lastName, bookRef);
+            }
+            catch (CliException e){
+                System.out.println(e.getMessage());
+            }
+        } else {
+            myPrint("Red", "Missing attributes");
+        }
     }
-    static void endBorrow(){
-        BorrowMgt.returnBook("2");
+
+    static void endBorrow(String message){
+        String[] split = message.split(" ");
+        String bookRef = "";
+        if (split.length == 2) {
+            try{
+              bookRef = (split[1]);
+            }
+            catch (Exception e){
+                System.out.println(e.getMessage());
+                return;
+            }
+        } else {
+            myPrint("Red", "Missing attributes");
+        }
+        BorrowMgt.returnBook(bookRef);
     }
+
+
     static void listBorrows(){
         BorrowMgt.listBorrows();
     }
