@@ -59,6 +59,7 @@ public class UserMgt {
         }
         System.out.println(" User not found");
     }
+
     /**
      * Function that diplays the list of all users
      * @return a list of users

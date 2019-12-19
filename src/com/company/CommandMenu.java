@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.Scanner;
 
 /**
@@ -82,13 +83,10 @@ public class CommandMenu {
 
             case "removeuser":
               removeUser(entry);
+              break;
 
             case "removebook":
-                if (split.length < 1) {
-                    myPrint("Red", "Missing attributes");
-                } else {
-                    BookMgt.removeBook(split[1]);
-                }
+               removeBook(entry);
                 break;
 
             case "listusers":
@@ -197,8 +195,8 @@ public class CommandMenu {
             try {
                 firstName = getString(split[1]);
                 lastName = getString(split[2]);
-
             } catch (CliException e) {
+
                 System.out.println(e.getMessage());
                 return;
             }
@@ -206,10 +204,22 @@ public class CommandMenu {
             myPrint("Red", "Missing attributes");
         }
         UserMgt.removeUser(firstName,lastName);
-
     }
-    static void removeBook(){
-        BookMgt.removeBook("3");
+
+    static void removeBook(String message)  {
+        String[] split = message.split(" ");
+        String bookRef = "";
+        if (split.length == 2) {
+            try {
+                bookRef= (split[1]);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                return;
+            }
+        } else {
+            myPrint("Red", "Missing attributes");
+        }
+        BookMgt.removeBook(bookRef);
     }
 
     static void addBorrow(){
@@ -352,6 +362,7 @@ public class CommandMenu {
      */
     private static int getInt(String message,int min, int max) {
         if(message.equals("") == true){
+            System.out.println("Found an empty field!");
             return -1;
         }
         try {
@@ -370,38 +381,38 @@ public class CommandMenu {
     }
 
 
-    private static int getInt(String message){
-        if(message.equals("")) {
-            System.out.println("VIDE");
-        }
-        try {
-            System.out.println(message);
-            Scanner sc = new Scanner(System.in);
-            int number = Integer.parseInt(sc.nextLine());
-            return number;
-        } catch (Exception e) {
+//    private static int getInt(String message){
+//        if(message.equals("")) {
+//            System.out.println("VIDE");
+//        }
+//        try {
+//            System.out.println(message);
+//            Scanner sc = new Scanner(System.in);
+//            int number = Integer.parseInt(sc.nextLine());
+//            return number;
+//        } catch (Exception e) {
+//
+//            System.out.println(e);
+//            return -1;
+//        }
+//    }
 
-            System.out.println(e);
-            return -1;
-        }
-    }
-
-    private static int setToInt(String entry) {
-
-        if (entry.equals("")) {
-            return -1;
-        }
-        else{
-
-            try {
-                int entryInt = Integer.parseInt(entry);
-                return entryInt;
-            } catch (NumberFormatException f) {
-                // myPrint("Red", "Wait an integer's value and found " + entry);
-            }
-            return -1;
-        }
-    }
+//    private static int setToInt(String entry) {
+//
+//        if (entry.equals("")) {
+//            return -1;
+//        }
+//        else{
+//
+//            try {
+//                int entryInt = Integer.parseInt(entry);
+//                return entryInt;
+//            } catch (NumberFormatException f) {
+//                // myPrint("Red", "Wait an integer's value and found " + entry);
+//            }
+//            return -1;
+//        }
+//    }
 
     /**
      * Function that reads string input

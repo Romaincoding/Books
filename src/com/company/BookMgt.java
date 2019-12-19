@@ -49,7 +49,12 @@ public class BookMgt {
     static void removeBook(String ref) {
         for (Book book : booksList) {
             if (book.getRef().equals(ref)) {
-                booksList.remove(book); }
+                booksList.remove(book);
+                CommandMenu.myPrint("Blue", "Delete ok");
+                return;
+            } else {
+                System.out.println("Book does not exist");
+            }
         }
     }
             /**
