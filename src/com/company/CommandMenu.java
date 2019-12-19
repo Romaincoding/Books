@@ -34,29 +34,26 @@ public class CommandMenu {
     /**Function that takes input of the user and process it
      *
      */
-    static void getUserCommand() {
+    static boolean getUserCommand() {
+        myPrint("Yellow", "> Enter a command");
         Boolean programIsOn = true;
         Scanner sc = new Scanner(System.in);
         String entry = sc.nextLine();
-        String[] split = entry.split(",");
-        String firstSplit = split[0];
+        String[] split = entry.split(" ");
+        String cmdName = split[0];
 
-        switch (firstSplit ) {
+        switch (cmdName ) {
 
             default:
-                System.out.println("Command not valid");
+                System.out.println("Command " + cmdName + " not valid");
                 break;
 
-            case "addUser":
-                if (split.length < 5) {
-                    myPrint("Red", "Missing attributes");
-                } else {
-                    System.out.println("J'arrive là?");
-                    UserMgt.addUser(split[1], split[2], getInt(split[3], 1, 31), getInt(split[4], 1, 12), getInt(split[5], 1900, 2030));
-                }
+            case "adduser":
+                addUser(entry);
+
                 break;
 
-            case "addBook":
+            case "addbook":
                 if (split.length < 4) {
                     myPrint("Red", "Missing attributes");
                 } else {
@@ -64,35 +61,31 @@ public class CommandMenu {
                 }
                 break;
 
-            case "addBorrow":
+            case "createborrow":
                 if (split.length < 3) {
                     myPrint("Red", "Missing attributes");
                 } else {
                     BorrowMgt.addBorrow(split[1], split[2], split[3]);
-                    break;
                 }
-
-
+                break;
 
             case "help":
                 displayHelp();
                 break;
 
-            case "quit":
+            case "exit":
                 programIsOn = false;
                 break;
 
-            case "editUser":
+            case "edituser":
                 if (split.length < 2) {
                     myPrint("Red", "Missing attributes");
                 } else {
-                    UserMgt.addUser("tata", "yoyo", 12, 12, 1987);
                     editUser(split[1], split[2]);
                 }
-
                 break;
 
-            case "editBook":
+            case "editbook":
 
                 if (split.length < 1) {
                     myPrint("Red", "Missing attributes");
@@ -101,7 +94,7 @@ public class CommandMenu {
                 }
                 break;
 
-            case "removeUser":
+            case "removeuser":
                 if (split.length < 2) {
                     myPrint("Red", "Missing attributes");
                 } else {
@@ -109,7 +102,7 @@ public class CommandMenu {
                 }
                 break;
 
-            case "removeBook":
+            case "removebook":
                 if (split.length < 1) {
                     myPrint("Red", "Missing attributes");
                 } else {
@@ -117,38 +110,55 @@ public class CommandMenu {
                 }
                 break;
 
-            case "UsersList":
+            case "listusers":
                 System.out.println( UserMgt.getUserList());
                 break;
 
-            case "BooksList":
+            case "listbooks":
                 System.out.println(BookMgt.getBooksList());
                 break;
 
-            case "listBorrows":
+            case "listborrow":
                 listBorrows();
                 break;
 
+            case "save":
+               save();
+                break;
+
+            case "restore":
+                restore();
+                break;
+
         }
+        return programIsOn;
+    }
+
+    private static void restore() {
+        System.out.println("To do");
+    }
+
+    private static void save() {
+        System.out.println("To do");
     }
 
 
-    static void addUser() {
-        try{ System.out.println("Format to addUser : firstname, lastname, daybirth, monthbirth, yearofbirth:");
-            Scanner sc = new Scanner(System.in);
-            String entry = sc.nextLine();
-            String [] split = entry.split(" ");
-            if(split.length < 5){
-                myPrint("Red", "Missing attributes");
-            }
-            // String outputEntry = split[0] +" "+ split [1] + " " + split[2] + " " + split[3] + " " + split[4];
-            UserMgt.addUser(split[0], split[1], setToInt(split[2]), setToInt(split[3]), setToInt(split[4]));
-
-        }catch (Exception e){
-            e.getStackTrace();
-        }
-
-    }
+//    static void addUser() {
+//        try{ System.out.println("Format to addUser : firstname, lastname, daybirth, monthbirth, yearofbirth:");
+//            Scanner sc = new Scanner(System.in);
+//            String entry = sc.nextLine();
+//            String [] split = entry.split(" ");
+//            if(split.length < 5){
+//                myPrint("Red", "Missing attributes");
+//            }
+//            // String outputEntry = split[0] +" "+ split [1] + " " + split[2] + " " + split[3] + " " + split[4];
+//            UserMgt.addUser(split[0], split[1], setToInt(split[2]), setToInt(split[3]), setToInt(split[4]));
+//
+//        }catch (Exception e){
+//            e.getStackTrace();
+//        }
+//
+//    }
 
 
     static void editUser(String firstName,String lastName){
@@ -208,24 +218,25 @@ public class CommandMenu {
      * Function that displays the menu
      */
     static void displayHelp() {
-        myPrint("Blue", "**********************************");
-        myPrint("Blue", "*       Menu                     *");
-        myPrint("Blue", "*  1-Help                        *");
-        myPrint("Blue", "*  2-Exit                        *");
-        myPrint("Blue", "*  3-addUser                     *");
-        myPrint("Blue", "*  4-editUser                    *");
-        myPrint("Blue", "*  5-removeUser                  *");
-        myPrint("Blue", "*  6-listUser                    *");
-        myPrint("Blue", "*  7-addBook                     *");
-        myPrint("Blue", "*  8-editBook                    *");
-        myPrint("Blue", "*  9-removeBook                  *");
-        myPrint("Blue", "*  10-listBooks                  *");
-        myPrint("Blue", "*  11-borrowBook                 *");
-        myPrint("Blue", "*  12-returnBook                 *");
-        myPrint("Blue", "*  13-listBorrows                *");
-        myPrint("Blue", "*  14-save                       *");
-        myPrint("Blue", "*  15-restore                    *");
-        myPrint("Blue", "**********************************");
+
+        System.out.println("adduser <firstName> <lastName> <dayOfBirth> <monthOfBirth> <yearOfBirth>");
+        System.out.println("edituser <firstName> <lastName>");
+        System.out.println("removeuser <firstName> <lastName>");
+        System.out.println("listusers\n");
+
+        System.out.println("addbook <title> <bookRef> <dateOfParution> <editorName>");
+        System.out.println("editbook <bookRef>");
+        System.out.println("removebook <bookRef");
+        System.out.println("listbooks\n");
+
+        System.out.println("createborrow <firstName> <lastName> <bookRef>");
+        System.out.println("endborrow <bookRef>");
+        System.out.println("listborrow\n");
+
+        System.out.println("save");
+        System.out.println("restore");
+        System.out.println("help");
+        System.out.println("exit");
 
     }
 
@@ -257,6 +268,34 @@ public class CommandMenu {
             }
 
         }
+    }
+
+   private static void addUser(String message){
+        String [] split = message.split(" ");
+
+       if (split.length == 6 ) {
+          try {
+              String firstName = getString(split[1]);
+              String lastName = getString(split[2]);
+              int dayBirth = getInt(split[3], 1, 31);
+              int monthBirth = getInt(split[4], 1, 12);
+              int yearBirth = getInt(split[5], 1900, 2019);
+              UserMgt.addUser(firstName, lastName, dayBirth, monthBirth, yearBirth);
+          } catch(CliException e){
+              e.printStackTrace();
+          }
+       } else {
+           myPrint("Red", "Missing attributes");
+
+       }
+
+   }
+
+    private static String getString(String s) throws CliException{
+        if (s.equals("") == true) {
+            throw new CliException("Error,String is empty ");
+        }
+        return s;
     }
 
     /**
