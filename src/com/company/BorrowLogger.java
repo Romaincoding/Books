@@ -22,6 +22,11 @@ public class BorrowLogger {
         }
     }
 
+    /**
+     * Function that serializes ArrayList<Book> in a file
+     * @param book is an ArrayList of books
+     * @throws IOException
+     */
     public static void serializeBook(ArrayList<Book> book) throws IOException {
 
         FileOutputStream fout = null;
@@ -32,6 +37,13 @@ public class BorrowLogger {
         oos.writeObject(book);
     }
 
+    /**
+     * F
+     * @param file
+     * @return
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public static ArrayList<Book> deserializeBook(String file) throws IOException, ClassNotFoundException {
         FileInputStream fis = null;
         ObjectInputStream ois = null;
@@ -39,15 +51,6 @@ public class BorrowLogger {
         ois = new ObjectInputStream(fis);
         return (ArrayList<Book>) ois.readObject();
     }
-
-
-//   public static void logToGson(Object object,String file) throws IOException {
-//        GsonBuilder gsonBuilder= new GsonBuilder();
-//        Gson gson = gsonBuilder.create();
-//       Writer writer = new FileWriter(file);
-//       System.out.printf(gson.toJson(object));
-//       System.out.printf(gson.);
-//       logToFile(gson.toString());
-//       }
+    
 }
 

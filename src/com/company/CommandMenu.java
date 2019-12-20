@@ -46,14 +46,12 @@ public class CommandMenu {
         String cmdName = "";
         Scanner sc = new Scanner(System.in);
         String entry = sc.nextLine();
-        String[] split = entry.split(" ");
+        String[] split = entry.split("\\s+");
         if (split.length > 0) {
             cmdName = split[0];
         } else {
             return programIsOn;
         }
-
-
 
         switch (cmdName ) {
 
@@ -156,7 +154,7 @@ public class CommandMenu {
      * @param message String
      */
     private static void addUser(String message){
-        String [] split = message.split(" ");
+        String [] split = message.split("\\s+");
 
         if (split.length == 6 ) {
             try {
@@ -179,7 +177,7 @@ public class CommandMenu {
      * @param message String
      */
     static void editUser(String message) {
-        String[] split = message.split(" ");
+        String[] split = message.split("\\s+");
         String firstName = "";
         String lastName = "";
         if (split.length == 3) {
@@ -236,7 +234,7 @@ public class CommandMenu {
     }
 
     static void removeUser(String message){
-        String[] split = message.split(" ");
+        String[] split = message.split("\\s+");
         String firstName = "";
         String lastName = "";
         if (split.length == 3) {
@@ -264,7 +262,7 @@ public class CommandMenu {
      * @param message
      */
     static void addBorrow(String message){
-        String[] split = message.split(" ");
+        String[] split = message.split("\\s+");
         if (split.length == 4) {
             try{
                 String firstName = getString(split[1]);
@@ -285,7 +283,7 @@ public class CommandMenu {
      * @param message
      */
     static void endBorrow(String message){
-        String[] split = message.split(" ");
+        String[] split = message.split("\\s+");
         String bookRef = "";
         if (split.length == 2) {
             try{
@@ -315,7 +313,7 @@ public class CommandMenu {
      * @param message
      */
     static void addBook(String message) {
-        String[] split = message.split(" ");
+        String[] split = message.split("\\s+");
 
         if (split.length == 5) {
             try{
@@ -323,11 +321,12 @@ public class CommandMenu {
                 String bookRef = (split[2]);
                 int dateOfParution = getInt(split[3], 1, 2019);
                 String editorName = getString(split[4]);
+
                 BookMgt.addBook(title,bookRef,dateOfParution,editorName);
 
             }
             catch (CliException e){
-
+                System.out.println("Date issue : " + e.getMessage());
             }
         } else {
             myPrint("Red", "Missing attributes");
@@ -451,12 +450,12 @@ public class CommandMenu {
 
         int number = Integer.parseInt(message);
         if (number > max) {
-            myPrint("Blue","Please be serious " + number + "?" + " are you from the future?");
-            throw new CliException("Error wrong entry ");
+          //  myPrint("Blue","Please be serious " + number + "?" + " are you from the future?");
+            throw new CliException("over the limit");
         }
         if (number < min){
-            myPrint("Red",number + " Very old, you have to move with the times!");
-            throw new CliException("Error wrong entry ");
+         //   myPrint("Red",number + " Very old, you have to move with the times!");
+            throw new CliException("under the limit");
         }
         return number;
     }
