@@ -42,7 +42,6 @@ public class BookMgt {
         }
         return null;
     }
-
     /**
      * Function that allows to delete a book
      * @param ref unique String reference for a book
@@ -53,11 +52,11 @@ public class BookMgt {
                 booksList.remove(book);
                 CommandMenu.myPrint("Blue", "Delete ok");
                 return;
-            } else {
-                System.out.println("Book does not exist");
             }
+            }
+        System.out.println("Book does not exist");
         }
-    }
+
     /**
      * Function that allows to display the list of all the books
      * @return a list of all the books

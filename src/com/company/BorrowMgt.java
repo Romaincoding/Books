@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 public class BorrowMgt {
 
-    public static final ArrayList<Borrow> borrowList = new ArrayList<Borrow>();
-    private BorrowLogger logger;
+    private static ArrayList<Borrow> borrowList = new ArrayList<Borrow>();
+
 
     BorrowMgt() {
 
@@ -97,7 +97,7 @@ public class BorrowMgt {
    }
 
     /**
-     * Function that display the list the borrows
+     * Function that displays the list the borrows
      * @return a list of borrows
      */
     public static void listBorrows() {
@@ -108,4 +108,9 @@ public class BorrowMgt {
     public static ArrayList<Borrow> getBorrowList() {
         return borrowList;
     }
+
+    public static void setBorrowList(ArrayList<Borrow> borrowList) {
+        BorrowMgt.borrowList = borrowList;
+    }
 }
+

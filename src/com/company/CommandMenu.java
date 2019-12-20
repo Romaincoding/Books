@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Class which manageS the CLI
+ * Class which manages the CLI
  */
 
 public class CommandMenu {
@@ -151,7 +151,7 @@ public class CommandMenu {
 
     /**
      * Function that add an user in a list if he did not exist before
-     * @param message String
+     * @param message String which represents input of the user
      */
     private static void addUser(String message){
         String [] split = message.split("\\s+");
@@ -168,13 +168,13 @@ public class CommandMenu {
                 System.out.println(e.getMessage());
             }
         } else {
-            myPrint("Red", "Missing attributes");
+            myPrint("Red", "Wrong attributes");
         }
-  }
+    }
 
     /**
      * Function that allows to update informations of an existing user
-     * @param message String
+     * @param message String which represents input of the user
      */
     static void editUser(String message) {
         String[] split = message.split("\\s+");
@@ -189,7 +189,7 @@ public class CommandMenu {
                 return;
             }
         } else {
-            myPrint("Red", "Missing attributes");
+            myPrint("Red", "Wrong attributes");
         }
 
         try {
@@ -233,6 +233,10 @@ public class CommandMenu {
         }
     }
 
+    /**
+     * Function that allows to delete a user with commandline
+     * @param message String which represents input of the user
+     */
     static void removeUser(String message){
         String[] split = message.split("\\s+");
         String firstName = "";
@@ -252,14 +256,17 @@ public class CommandMenu {
         UserMgt.removeUser(firstName,lastName);
     }
 
+    /**
+     * Function that displays the list of users
+     */
     static void listUsers(){
         System.out.println(UserMgt.getUserList());
     }
 // methods for borrow
 
     /**
-     *
-     * @param message
+     *Function that allows to create a borrow with commandline
+     * @param message String which represents input of the user
      */
     static void addBorrow(String message){
         String[] split = message.split("\\s+");
@@ -279,8 +286,8 @@ public class CommandMenu {
     }
 
     /**
-     *
-     * @param message
+     *Function that allows to signal the ends of a book's borrowing
+     * @param message String which represents input of the user
      */
     static void endBorrow(String message){
         String[] split = message.split("\\s+");
@@ -300,7 +307,7 @@ public class CommandMenu {
     }
 
     /**
-     *
+     *Function that displays the list the borrows
      */
     static void listBorrows(){
         BorrowMgt.listBorrows();
@@ -309,8 +316,8 @@ public class CommandMenu {
 // methods for books
 
     /**
-     *
-     * @param message
+     *Function that allows to add a book with commandline
+     * @param message String which represents input of  the user
      */
     static void addBook(String message) {
         String[] split = message.split("\\s+");
@@ -334,8 +341,8 @@ public class CommandMenu {
     }
 
     /**
-     *
-     * @param message
+     *Function that allows to update informations of a book with commandline
+     * @param message String which represents input of  the user
      */
     static void editBook(String message) {
         String [] split = message.split(" ");
@@ -351,42 +358,42 @@ public class CommandMenu {
         } else {
             myPrint("Red", "Missing attributes");
         }
-       try {
-           Book book = BookMgt.findBook(bookRef);
-           if (book != null) {
-               Borrow borrow = BorrowMgt.getBorrow(book);
-               if (borrow != null) {
-                   myPrint("Red", "Edit not possible, Book is stored in borrow's list");
-                   return;
-               }
-               String title = getLine("What is the book's title? :");
-               if (bookRef.equals("") == false) {
-                   book.setTitle(title);
-               }
+        try {
+            Book book = BookMgt.findBook(bookRef);
+            if (book != null) {
+                Borrow borrow = BorrowMgt.getBorrow(book);
+                if (borrow != null) {
+                    myPrint("Red", "Edit not possible, Book is stored in borrow's list");
+                    return;
+                }
+                String title = getLine("What is the book's title? :");
+                if (bookRef.equals("") == false) {
+                    book.setTitle(title);
+                }
 
-               bookRef = getLine("What is the book's reference? :");
+                bookRef = getLine("What is the book's reference? :");
 
-               if (bookRef.equals("") == false && BookMgt.getBooksList().contains(book.getRef()) == false) {
-                   book.setRef(bookRef);
-               }
+                if (bookRef.equals("") == false && BookMgt.getBooksList().contains(book.getRef()) == false) {
+                    book.setRef(bookRef);
+                }
 
-               String dateOfParution = getLine("What's the date of parution?");
-               if (dateOfParution.equals("") == false) {
-                   book.setDateOfParution(getInt(dateOfParution, 0, 2019));
-               }
-               String editorName = getLine("What's the name of editor?");
-               if (editorName.equals("") == false) {
-                   book.setEditorName(editorName);
-               }
-           }
-       }catch (Exception e){
-           System.out.println(e.getMessage());
-       }
+                String dateOfParution = getLine("What's the date of parution?");
+                if (dateOfParution.equals("") == false) {
+                    book.setDateOfParution(getInt(dateOfParution, 0, 2019));
+                }
+                String editorName = getLine("What's the name of editor?");
+                if (editorName.equals("") == false) {
+                    book.setEditorName(editorName);
+                }
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
-     *
-     * @param message
+     *Function that allows to delete a book with commandline
+     * @param message String which represents input of  the user
      */
     static void removeBook(String message)  {
         String[] split = message.split(" ");
@@ -404,6 +411,9 @@ public class CommandMenu {
         BookMgt.removeBook(bookRef);
     }
 
+    /**
+     * function that allows to display the book's list with commandline
+     */
     static void listBooks(){
         System.out.println(BookMgt.getBooksList());
     }
@@ -412,7 +422,7 @@ public class CommandMenu {
 // tools
 
     /**
-     * Function that check a String
+     * Function that checks a String
      * @param s is the String to check
      * @return a String checked
      * @throws CliException
@@ -427,7 +437,6 @@ public class CommandMenu {
         return s;
     }
 
-
     /**
      * Function that allows to check if numbers are presents in a String
      * @param name is the String to check
@@ -439,7 +448,7 @@ public class CommandMenu {
 
     /**
      * Function that reads integer input
-     * @param message String that is process
+     * @param message String that is processed
      * @return int value
      */
     private static int getInt(String message,int min, int max) throws CliException {
@@ -450,11 +459,11 @@ public class CommandMenu {
 
         int number = Integer.parseInt(message);
         if (number > max) {
-          //  myPrint("Blue","Please be serious " + number + "?" + " are you from the future?");
+            //  myPrint("Blue","Please be serious " + number + "?" + " are you from the future?");
             throw new CliException("over the limit");
         }
         if (number < min){
-         //   myPrint("Red",number + " Very old, you have to move with the times!");
+            //   myPrint("Red",number + " Very old, you have to move with the times!");
             throw new CliException("under the limit");
         }
         return number;
@@ -462,7 +471,7 @@ public class CommandMenu {
 
     /**
      * Function that reads string input
-     * @param message to display
+     * @param message String which represents input of the user
      * @return string
      */
     private static String getLine(String message){
@@ -479,27 +488,26 @@ public class CommandMenu {
     private static void save(){
         ArrayList<Object> readBookList = null;
         try {
-            BorrowLogger.serializeBook(BookMgt.getBooksList());
+            Serializer.serializeBook(BookMgt.getBooksList());
+            Serializer.serializeUser(UserMgt.getUserList());
+            Serializer.serializeBorrow(BorrowMgt.getBorrowList());
 
-            System.out.println("la" + readBookList.get(0));
-
-          //  BorrowLogger.logToGson(BorrowMgt.getBorrowList(),"borrows.Json");
-           // BorrowLogger.logToGson(BookMgt.getBooksList(),"books.Json");
-           // BorrowLogger.logToGson(UserMgt.getUserList(),"users.Json");
-        } catch (Exception E) {
-
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
     /**
      * Function that restore all the informations of the last save
      * */
-    private static void restore() throws IOException, ClassNotFoundException {
-     try{
-         BookMgt.setBooksList(BorrowLogger.deserializeBook("book.test"));
-     } catch (Exception e){
-
-     }
+    private static void restore() {
+        try{
+            BookMgt.setBooksList(Serializer.deserializeBook("book.save"));
+            UserMgt.setUserList(Serializer.deserializeUser("user.save"));
+            BorrowMgt.setBorrowList(Serializer.deserializeBorrow("borrow.save"));
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 }
 

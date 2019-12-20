@@ -6,8 +6,7 @@ import java.util.ArrayList;
  */
 public class UserMgt {
 
-
-    public static final ArrayList<User> userList = new ArrayList<User>();
+    private static  ArrayList<User> userList = new ArrayList<User>();
 
     /**
      * Function that add an user in a list if he did not exists before
@@ -64,5 +63,9 @@ public class UserMgt {
      */
     public static ArrayList<User> getUserList() {
         return userList;
+    }
+
+    public static void setUserList(ArrayList<User> userList) {
+        UserMgt.userList = userList;
     }
 }

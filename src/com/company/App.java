@@ -1,16 +1,18 @@
 package com.company;
 
-
+/**
+ * Main class
+ */
 
 public class App {
 
     public static void main(String[] args) throws Exception {
-        boolean programIsOn = true;
-//            String message = FigletFont.convertOneLine("Hello les TPs !");
+        boolean programIsOn;
+
         do {
             programIsOn = CommandMenu.getUserCommand();
 
         }
-        while (programIsOn == true);
+        while (programIsOn);
     }
 }
