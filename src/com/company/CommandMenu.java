@@ -229,7 +229,7 @@ public class CommandMenu {
                 System.out.println("User does not exist!");
             }
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            System.out.println("Date exception" + e.getMessage());
         }
     }
 
@@ -251,7 +251,7 @@ public class CommandMenu {
                 return;
             }
         } else {
-            myPrint("Red", "Missing attributes");
+            myPrint("Red", "Wrong attributes");
         }
         UserMgt.removeUser(firstName,lastName);
     }
@@ -281,7 +281,7 @@ public class CommandMenu {
                 System.out.println(e.getMessage());
             }
         } else {
-            myPrint("Red", "Missing attributes");
+            myPrint("Red", "Wrong attributes");
         }
     }
 
@@ -336,7 +336,7 @@ public class CommandMenu {
                 System.out.println("Date issue : " + e.getMessage());
             }
         } else {
-            myPrint("Red", "Missing attributes");
+            myPrint("Red", "Wrong attributes");
         }
     }
 
@@ -356,7 +356,7 @@ public class CommandMenu {
                 return;
             }
         } else {
-            myPrint("Red", "Missing attributes");
+            myPrint("Red", "Wrong attributes");
         }
         try {
             Book book = BookMgt.findBook(bookRef);
@@ -406,7 +406,7 @@ public class CommandMenu {
                 return;
             }
         } else {
-            myPrint("Red", "Missing attributes");
+            myPrint("Red", "Wrong attributes");
         }
         BookMgt.removeBook(bookRef);
     }
@@ -449,7 +449,10 @@ public class CommandMenu {
     /**
      * Function that reads integer input
      * @param message String that is processed
-     * @return int value
+     * @param min integer reresents minimum limit
+     * @param max integer represents maximum limit
+     * @return* @return int value
+     * @throws CliException
      */
     private static int getInt(String message,int min, int max) throws CliException {
         if(message.equals("") == true){
@@ -486,7 +489,6 @@ public class CommandMenu {
      * Function that save all the informations stored
      */
     private static void save(){
-        ArrayList<Object> readBookList = null;
         try {
             Serializer.serializeBook(BookMgt.getBooksList());
             Serializer.serializeUser(UserMgt.getUserList());
