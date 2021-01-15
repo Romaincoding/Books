@@ -1,9 +1,9 @@
 # Books
-projet code school
+
 
 ## Description
-Projet is a school's examination for Java.
-The project allows to manage a library with a CLI (Command line interface);
+Books is Java's projet,
+it allows to manage a library with a CLI (Command line interface);
 
 
 ## Configuration
@@ -43,7 +43,7 @@ update one user's information
 
 
 
-or remove him from the list.
+or remove him from the list
 
 ![Alt text](screenshots/removeuser.jpg)
 
@@ -56,11 +56,11 @@ Finally we can create a borrow by assiocating an user with a book's reference.
 ![Alt text](screenshots/createborrow.jpg)
 
 
- end it,
+ end it
  
 ![Alt text](screenshots/endborrow.jpg)
 
-or see the borrow's list.
+or see the borrow's list
 
 ![Alt text](screenshots/listborrow.jpg)
 
