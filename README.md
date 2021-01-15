@@ -17,6 +17,7 @@ Command "help" shows all the commands of the app
 
 
 You can create Users with firstname("Michel"), lastName("Polnareff") dayOfBirth("03"), month of birth ("07") year of birth("1944"), 
+
 ![Alt text](Adduser.jpg)
 
 You can also display the user's list
